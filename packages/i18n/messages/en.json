@@ -1,0 +1,71 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try again",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "currency": "₦"
+  },
+  "auth": {
+    "login": "Log In",
+    "register": "Create Account",
+    "logout": "Log Out",
+    "email": "Email",
+    "phone": "Phone Number",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot password?",
+    "resetPassword": "Reset Password",
+    "verifyPhone": "Verify Phone",
+    "otpSent": "A verification code was sent to {phone}",
+    "otpExpiry": "Expires in 5 minutes",
+    "resendCode": "Resend code",
+    "resendIn": "Resend in {seconds}s"
+  },
+  "tasks": {
+    "postErrand": "Post an Errand",
+    "taskType": "Task Type",
+    "description": "Description",
+    "pickup": "Pickup Address",
+    "destination": "Destination Address",
+    "schedule": "Schedule",
+    "instant": "ASAP — get a runner now",
+    "today": "Today — pick a time",
+    "scheduled": "Schedule for later",
+    "attachPhotos": "Attach Photos",
+    "specialInstructions": "Special Instructions",
+    "priceEstimate": "Price Estimate",
+    "confirmAndPay": "Confirm & Pay",
+    "taskPosted": "Errand posted!",
+    "runnerAssigned": "Runner assigned",
+    "enRoute": "Runner en route",
+    "inProgress": "Task in progress",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "wallet": {
+    "balance": "Wallet Balance",
+    "available": "Available",
+    "pending": "Pending Escrow",
+    "fundWallet": "Fund Wallet",
+    "minimumTopUp": "Minimum top-up: ₦500",
+    "transactionHistory": "Transaction History"
+  },
+  "runner": {
+    "goOnline": "Go Online",
+    "goOffline": "Go Offline",
+    "taskFeed": "Available Tasks",
+    "myEarnings": "My Earnings",
+    "withdraw": "Withdraw",
+    "minimumWithdrawal": "Minimum withdrawal: ₦1,000",
+    "kycRequired": "Complete KYC to accept tasks"
+  }
+}

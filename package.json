@@ -1,0 +1,27 @@
+{
+  "name": "zoomoff-web",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "dev:public": "turbo run dev --filter=@zoomoff/public",
+    "dev:customer": "turbo run dev --filter=@zoomoff/customer",
+    "dev:runner": "turbo run dev --filter=@zoomoff/runner",
+    "dev:business": "turbo run dev --filter=@zoomoff/business",
+    "dev:admin": "turbo run dev --filter=@zoomoff/admin",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\" --ignore-path .gitignore"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "prettier": "^3.3.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.0.0"
+}
