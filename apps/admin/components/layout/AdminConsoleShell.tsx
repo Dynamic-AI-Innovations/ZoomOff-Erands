@@ -45,7 +45,7 @@ export function AdminConsoleShell({ children }: { children: React.ReactNode }) {
           </div>
         )}
 
-        <nav className="flex-1 px-2 py-3 space-y-0.5 overflow-y-auto">
+        <nav className="flex-1 px-2 py-3 space-y-0.5 overflow-y-auto" aria-label="Admin navigation">
           {NAV.map(({ label, href, icon: Icon }) => {
             const active = pathname === href || pathname.startsWith(href + "/");
             const isSuperOnly = href === "/settings";
@@ -60,6 +60,11 @@ export function AdminConsoleShell({ children }: { children: React.ReactNode }) {
             );
           })}
         </nav>
+        <div className="px-4 py-3 border-t border-white/10">
+          <p className="text-2xs text-gray-700 text-center tracking-wide">
+            Powered by <span className="text-brand-gold">Dynamics Technology</span>
+          </p>
+        </div>
       </aside>
 
       {open && <div className="fixed inset-0 z-40 bg-black/60 md:hidden" onClick={() => setOpen(false)} aria-hidden />}

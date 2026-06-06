@@ -77,6 +77,12 @@ export function PortalShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
+        <div className="px-4 py-2 border-t border-zo-border">
+          <p className="text-2xs text-zo-muted text-center tracking-wide">
+            Powered by <span className="text-brand-gold font-medium">Dynamics Technology</span>
+          </p>
+        </div>
+
         {user && (
           <div className="border-t border-zo-border p-4">
             <div className="flex items-center gap-3">

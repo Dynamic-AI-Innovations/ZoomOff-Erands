@@ -19,6 +19,9 @@ export default function AdminLoginPage() {
         <p className="mt-4 text-center text-xs text-gray-600">
           Unauthorised access is strictly prohibited and logged.
         </p>
+        <p className="mt-6 text-center text-2xs text-gray-700 tracking-wide">
+          Powered by <span className="text-brand-gold">Dynamics Technology</span>
+        </p>
       </div>
     </div>
   );

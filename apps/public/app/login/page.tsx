@@ -75,6 +75,9 @@ export default function LoginPage() {
             Sign up free
           </Link>
         </p>
+        <p className="text-center text-2xs text-zo-muted/60 mt-8 tracking-wide">
+          Powered by <span className="text-brand-gold/80">Dynamics Technology</span>
+        </p>
       </div>
     </div>
   );

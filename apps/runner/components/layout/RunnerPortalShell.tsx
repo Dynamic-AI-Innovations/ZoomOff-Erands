@@ -43,6 +43,13 @@ export function RunnerPortalShell({ children }: { children: React.ReactNode }) {
       {/* Content */}
       <main className="flex-1 p-4">{children}</main>
 
+      {/* Powered by */}
+      <div className="border-t border-zo-border bg-white px-4 py-1.5 text-center">
+        <p className="text-2xs text-zo-muted tracking-wide">
+          Powered by <span className="text-brand-gold font-medium">Dynamics Technology</span>
+        </p>
+      </div>
+
       {/* Bottom nav (mobile-first for runners) */}
       <nav className="sticky bottom-0 border-t border-zo-border bg-white" aria-label="Runner navigation">
         <div className="flex">

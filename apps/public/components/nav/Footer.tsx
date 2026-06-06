@@ -38,7 +38,7 @@ export function Footer() {
               Fast · Trusted · Connected · Convenient · Premium
             </p>
             <p className="mt-4 text-xs text-gray-500">
-              © {new Date().getFullYear()} ZoomOff Technologies Ltd.
+              © {new Date().getFullYear()} Dynamics Technology Ltd.
               <br />
               All rights reserved.
             </p>
@@ -78,6 +78,12 @@ export function Footer() {
               Terms
             </Link>
           </div>
+        </div>
+        <div className="mt-4 flex justify-center">
+          <p className="text-2xs text-gray-600 tracking-wide">
+            Powered by{" "}
+            <span className="text-brand-gold font-medium">Dynamics Technology</span>
+          </p>
         </div>
       </div>
     </footer>

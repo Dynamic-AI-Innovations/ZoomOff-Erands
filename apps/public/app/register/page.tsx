@@ -109,6 +109,9 @@ export default function RegisterPage() {
             Log in
           </Link>
         </p>
+        <p className="text-center text-2xs text-zo-muted/60 mt-8 tracking-wide">
+          Powered by <span className="text-brand-gold/80">Dynamics Technology</span>
+        </p>
       </div>
     </div>
   );
