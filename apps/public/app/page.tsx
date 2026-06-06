@@ -5,10 +5,11 @@ import {
   ShoppingCart, FileText, Pill, CreditCard, Building2,
   Users, Package, ClipboardList, Home, PenLine,
   ArrowRight, Star, MapPin, CheckCircle, Shield, Zap,
-  ChevronRight, Play,
+  ChevronRight,
 } from "lucide-react";
 import { Button } from "@zoomoff/ui";
 import { HeroSlider } from "@/components/hero/HeroSlider";
+import { AppExperienceTabs } from "@/components/sections/AppExperienceTabs";
 
 export const metadata: Metadata = {
   title: "ZoomOff — Fast, Trusted Errands Across Nigeria",
@@ -204,85 +205,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── APP EXPERIENCE ─── */}
-      <section className="py-28">
-        <div className="container-max section-padding">
-          <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
-            {/* Phone image */}
-            <div className="relative order-2 lg:order-1">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[3/4] max-w-sm mx-auto">
-                <Image
-                  src={IMGS.phone}
-                  alt="Person using the ZoomOff app on their phone"
-                  fill
-                  className="object-cover object-top"
-                  sizes="(max-width: 1024px) 80vw, 40vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
-              </div>
-              {/* Floating rating */}
-              <div className="absolute -right-4 top-10 rounded-2xl bg-white p-4 shadow-card-hover flex items-center gap-3 border border-zo-border">
-                <div className="flex flex-col">
-                  <div className="flex gap-0.5">
-                    {[1,2,3,4,5].map(i => (
-                      <Star key={i} className="h-3.5 w-3.5 fill-brand-gold text-brand-gold" aria-hidden="true" />
-                    ))}
-                  </div>
-                  <p className="text-xs font-bold text-brand-charcoal mt-1">4.9 / 5.0</p>
-                  <p className="text-2xs text-zo-muted">2,400+ reviews</p>
-                </div>
-              </div>
-              {/* Floating speed */}
-              <div className="absolute -left-4 bottom-16 rounded-2xl bg-brand-charcoal p-4 shadow-card-hover">
-                <Zap className="h-5 w-5 text-brand-gold mb-1.5" aria-hidden="true" />
-                <p className="text-xs font-medium text-gray-400">Matched in</p>
-                <p className="font-display text-xl font-extrabold text-brand-gold tracking-tight">4.2 min</p>
-              </div>
-            </div>
-
-            {/* Copy */}
-            <div className="order-1 lg:order-2">
-              <p className="text-xs font-bold text-brand-gold uppercase tracking-[0.2em] mb-4">The ZoomOff app</p>
-              <h2 className="font-display text-3xl font-extrabold text-brand-charcoal md:text-4xl tracking-tight text-balance">
-                Everything you need in one tap
-              </h2>
-              <p className="mt-5 text-zo-muted leading-relaxed">
-                Post errands, track your runner on a live map, chat in real time, pay securely, and rate your experience — all from a single app built for Nigeria.
-              </p>
-
-              <ul className="mt-9 space-y-5">
-                {[
-                  { icon: MapPin, title: "Real-time GPS tracking", desc: "5-second location refresh with turn-by-turn ETA." },
-                  { icon: Shield, title: "Escrow-protected payments", desc: "Money only releases when you confirm the job is done." },
-                  { icon: Zap, title: "Instant or scheduled", desc: "Post now or book up to 7 days in advance." },
-                ].map(({ icon: Icon, title, desc }) => (
-                  <li key={title} className="flex gap-4">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-gold/10 text-brand-gold">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </div>
-                    <div className="pt-1">
-                      <p className="font-semibold text-brand-charcoal text-sm">{title}</p>
-                      <p className="text-xs text-zo-muted mt-0.5 leading-relaxed">{desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-10 flex gap-3 flex-wrap">
-                <Button variant="primary" size="lg" asChild>
-                  <Link href="/delegate">Get Started Free</Link>
-                </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <Link href="/how-it-works" className="flex items-center gap-2">
-                    <Play className="h-4 w-4 fill-current" aria-hidden="true" />
-                    See how it works
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ─── APP EXPERIENCE (tabbed: customers + runners) ─── */}
+      <AppExperienceTabs />
 
       {/* ─── TRUST ─── */}
       <section className="bg-brand-charcoal py-28">

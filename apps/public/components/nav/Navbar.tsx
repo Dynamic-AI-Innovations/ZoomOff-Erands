@@ -66,7 +66,7 @@ export function Navbar() {
             <Link href="/login">Log in</Link>
           </Button>
           <Button variant="primary" size="sm" asChild>
-            <Link href="/register">Post an Errand</Link>
+            <Link href="/get-started">Post an Errand</Link>
           </Button>
         </div>
 
@@ -110,7 +110,7 @@ export function Navbar() {
               <Link href="/login">Log in</Link>
             </Button>
             <Button variant="primary" size="md" className="w-full" asChild>
-              <Link href="/register">Post an Errand</Link>
+              <Link href="/get-started">Post an Errand</Link>
             </Button>
           </div>
         </nav>
