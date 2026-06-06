@@ -142,8 +142,8 @@ export function HeroSlider() {
           {/* CTAs — constant across all slides */}
           <div className="mt-12 flex flex-wrap gap-4">
             <Button size="xl" variant="primary" asChild>
-              <Link href="/register">
-                Post an Errand Free
+              <Link href="/delegate">
+                Delegate an Errand Free
                 <ArrowRight className="h-5 w-5 ml-1.5" aria-hidden="true" />
               </Link>
             </Button>
