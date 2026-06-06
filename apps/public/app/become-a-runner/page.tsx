@@ -6,7 +6,7 @@ import { EarningsCalculator } from "./EarningsCalculator";
 
 export const metadata: Metadata = {
   title: "Become a Runner — Earn on Your Schedule",
-  description: "Join ZoomOff as a verified runner. Earn ₦25,000–₦120,000/month running errands across Lagos, Abuja and Port Harcourt.",
+  description: "Join ZoomOff as a verified runner. Earn ₦25,000–₦150,000/month running errands on your own schedule.",
 };
 
 const REQUIREMENTS = [
@@ -29,9 +29,6 @@ export default function BecomeARunnerPage() {
       {/* Hero */}
       <section className="bg-brand-charcoal py-20">
         <div className="container-max section-padding text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-brand-gold/30 bg-brand-gold/10 px-4 py-1.5 text-sm text-brand-gold mb-6">
-            Now hiring in Lagos, Abuja & Port Harcourt
-          </div>
           <h1 className="font-display text-4xl font-bold text-white md:text-5xl text-balance">
             Run errands. <span className="text-brand-gold">Earn daily.</span>
           </h1>
@@ -39,7 +36,7 @@ export default function BecomeARunnerPage() {
             Join thousands of ZoomOff runners earning on their own schedule. Apply in 10 minutes, earn within 24 hours of approval.
           </p>
           <Button size="xl" variant="primary" className="mt-8" asChild>
-            <Link href="https://runners.zoomoff.africa/register/1">
+            <Link href="/runner-apply">
               Start Application
               <ArrowRight className="h-5 w-5" aria-hidden="true" />
             </Link>
@@ -91,7 +88,7 @@ export default function BecomeARunnerPage() {
           </div>
           <div className="text-center mt-10">
             <Button size="xl" variant="primary" asChild>
-              <Link href="https://runners.zoomoff.africa/register/1">
+              <Link href="/runner-apply">
                 Apply Now — It&apos;s Free
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </Link>
