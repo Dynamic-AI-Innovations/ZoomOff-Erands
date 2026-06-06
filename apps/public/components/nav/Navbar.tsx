@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@zoomoff/ui";
@@ -26,17 +27,21 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 w-full transition-shadow",
-        scrolled ? "bg-white shadow-card" : "bg-transparent"
+        "sticky top-0 z-40 w-full transition-all duration-300",
+        scrolled ? "bg-white/95 backdrop-blur shadow-card" : "bg-transparent"
       )}
     >
       <div className="container-max section-padding flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2" aria-label="ZoomOff home">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-gold font-display text-lg font-bold text-brand-charcoal">
-            Z
-          </span>
-          <span className="font-display text-xl font-bold text-brand-charcoal">ZoomOff</span>
+        <Link href="/" className="flex items-center gap-0" aria-label="ZoomOff home">
+          <Image
+            src="/logo.png"
+            alt="ZoomOff Errand Services"
+            width={120}
+            height={48}
+            className="h-12 w-auto object-contain"
+            priority
+          />
         </Link>
 
         {/* Desktop nav */}
@@ -45,7 +50,10 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-zo-muted transition-colors hover:text-brand-charcoal"
+              className={cn(
+                "text-sm font-medium transition-colors",
+                scrolled ? "text-zo-muted hover:text-brand-charcoal" : "text-white/80 hover:text-white"
+              )}
             >
               {link.label}
             </Link>
@@ -54,7 +62,7 @@ export function Navbar() {
 
         {/* Desktop CTAs */}
         <div className="hidden items-center gap-3 md:flex">
-          <Button variant="ghost" size="sm" asChild>
+          <Button variant="ghost" size="sm" className={scrolled ? "" : "text-white hover:bg-white/10"} asChild>
             <Link href="/login">Log in</Link>
           </Button>
           <Button variant="primary" size="sm" asChild>
@@ -64,7 +72,10 @@ export function Navbar() {
 
         {/* Mobile menu toggle */}
         <button
-          className="flex items-center justify-center rounded-lg p-2 text-brand-charcoal hover:bg-zo-bg-light md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
+          className={cn(
+            "flex items-center justify-center rounded-lg p-2 md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold",
+            scrolled ? "text-brand-charcoal hover:bg-zo-bg-light" : "text-white hover:bg-white/10"
+          )}
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}

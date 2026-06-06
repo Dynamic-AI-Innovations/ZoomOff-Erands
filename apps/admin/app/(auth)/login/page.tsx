@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { AdminLoginForm } from "@/components/auth/AdminLoginForm";
 
 export const metadata: Metadata = { title: "Admin Login" };
@@ -8,9 +9,7 @@ export default function AdminLoginPage() {
     <div className="flex min-h-screen items-center justify-center p-4 bg-zo-bg-dark">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-gold mx-auto mb-5">
-            <span className="font-display text-2xl font-bold text-brand-charcoal">Z</span>
-          </div>
+          <Image src="/logo.png" alt="ZoomOff Errand Services" width={160} height={64} className="h-16 w-auto object-contain mx-auto mb-5" priority />
           <h1 className="font-display text-2xl font-bold text-white">Admin Console</h1>
           <p className="mt-1 text-sm text-gray-400">ZoomOff internal operations — authorised access only</p>
         </div>

@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, ListChecks, DollarSign, User, Wifi, WifiOff } from "lucide-react";
@@ -22,9 +23,9 @@ export function RunnerPortalShell({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-screen flex-col bg-zo-bg-light">
       {/* Top bar */}
       <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-zo-border bg-white px-4">
-        <Link href="/dashboard" className="flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-gold font-display text-base font-bold text-brand-charcoal">Z</span>
-          <span className="font-display text-base font-bold text-brand-charcoal">Runner</span>
+        <Link href="/dashboard" className="flex items-center gap-1.5">
+          <Image src="/logo.png" alt="ZoomOff" width={80} height={32} className="h-8 w-auto object-contain" unoptimized />
+          <span className="text-xs font-semibold tracking-widest uppercase text-zo-muted">Runner</span>
         </Link>
         <div className="flex items-center gap-3">
           <span className="text-xs text-zo-muted">{user?.name}</span>

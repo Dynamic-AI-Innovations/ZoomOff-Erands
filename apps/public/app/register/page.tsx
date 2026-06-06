@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Mail, Lock, User, Phone } from "lucide-react";
 import { Button } from "@zoomoff/ui";
@@ -20,9 +21,7 @@ export default function RegisterPage() {
 
         {/* Logo */}
         <div className="mb-8">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-gold mb-4">
-            <span className="font-display text-xl font-bold text-brand-charcoal">Z</span>
-          </div>
+          <Image src="/logo.png" alt="ZoomOff Errand Services" width={160} height={64} className="h-16 w-auto object-contain mb-4" priority />
           <h1 className="font-display text-2xl font-bold text-brand-charcoal">Create your account</h1>
           <p className="text-sm text-zo-muted mt-1">Post your first errand in under 60 seconds</p>
         </div>

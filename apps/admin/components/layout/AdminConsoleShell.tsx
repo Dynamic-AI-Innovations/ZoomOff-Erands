@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, Map, Users, Flag, Shield, DollarSign, ClipboardList, AlertTriangle, Settings, Menu, X } from "lucide-react";
@@ -28,8 +29,8 @@ export function AdminConsoleShell({ children }: { children: React.ReactNode }) {
       <aside className={cn("fixed inset-y-0 left-0 z-50 flex w-56 flex-col bg-black border-r border-white/10 transition-transform md:translate-x-0", open ? "translate-x-0" : "-translate-x-full")}>
         <div className="flex h-14 items-center justify-between px-4 border-b border-white/10">
           <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-gold font-display font-bold text-brand-charcoal text-sm">Z</span>
-            <span className="font-display text-sm font-bold text-white">Admin</span>
+            <Image src="/logo.png" alt="ZoomOff" width={80} height={32} className="h-8 w-auto object-contain" unoptimized />
+            <span className="font-display text-xs font-semibold tracking-widest uppercase text-gray-400">Admin</span>
           </div>
           <button className="md:hidden p-1 text-gray-400 hover:text-white rounded" onClick={() => setOpen(false)} aria-label="Close"><X className="h-4 w-4" /></button>
         </div>

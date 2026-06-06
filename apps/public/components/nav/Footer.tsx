@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const LINKS = {
@@ -32,12 +33,7 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-gold font-display text-lg font-bold text-brand-charcoal">
-                Z
-              </span>
-              <span className="font-display text-xl font-bold text-white">ZoomOff</span>
-            </div>
+            <Image src="/logo.png" alt="ZoomOff Errand Services" width={140} height={56} className="h-14 w-auto object-contain" />
             <p className="mt-3 text-sm text-gray-400 leading-relaxed">
               Fast · Trusted · Connected · Convenient · Premium
             </p>

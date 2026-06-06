@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { RegisterForm } from "@/components/auth/RegisterForm";
 import Link from "next/link";
 
@@ -9,9 +10,8 @@ export default function RegisterPage() {
     <div className="flex min-h-screen items-center justify-center p-4 bg-zo-bg-light">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <Link href="https://zoomoff.africa" className="inline-flex items-center gap-2 mb-6">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-gold font-display text-xl font-bold text-brand-charcoal">Z</span>
-            <span className="font-display text-2xl font-bold text-brand-charcoal">ZoomOff</span>
+          <Link href="https://zoomoff.africa" className="inline-block mb-6">
+            <Image src="/logo.png" alt="ZoomOff" width={160} height={64} className="h-16 w-auto object-contain" unoptimized />
           </Link>
           <h1 className="font-display text-2xl font-bold text-brand-charcoal">Create your account</h1>
           <p className="mt-1 text-sm text-zo-muted">Post your first errand in minutes</p>

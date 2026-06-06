@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -35,9 +36,8 @@ export function PortalShell({ children }: { children: React.ReactNode }) {
         aria-label="Main navigation"
       >
         <div className="flex h-16 items-center justify-between px-5 border-b border-zo-border">
-          <Link href="/dashboard" className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-gold font-display text-lg font-bold text-brand-charcoal">Z</span>
-            <span className="font-display text-lg font-bold text-brand-charcoal">ZoomOff</span>
+          <Link href="/dashboard">
+            <Image src="/logo.png" alt="ZoomOff" width={100} height={40} className="h-10 w-auto object-contain" unoptimized />
           </Link>
           <button
             className="md:hidden p-1 rounded-lg hover:bg-zo-bg-light"
