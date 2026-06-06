@@ -1,6 +1,6 @@
 [build]
-  base    = "apps/customer"
-  command = "cd ../.. && pnpm install --frozen-lockfile && pnpm --filter @zoomoff/customer build"
+  base    = "apps/public"
+  command = "cd ../.. && pnpm install --frozen-lockfile && pnpm --filter @zoomoff/public build"
   publish = ".next"
 
 [build.environment]

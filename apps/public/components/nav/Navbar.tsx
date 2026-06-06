@@ -55,10 +55,10 @@ export function Navbar() {
         {/* Desktop CTAs */}
         <div className="hidden items-center gap-3 md:flex">
           <Button variant="ghost" size="sm" asChild>
-            <Link href="https://app.zoomoff.africa/login">Log in</Link>
+            <Link href="/login">Log in</Link>
           </Button>
           <Button variant="primary" size="sm" asChild>
-            <Link href="https://app.zoomoff.africa/register">Post an Errand</Link>
+            <Link href="/register">Post an Errand</Link>
           </Button>
         </div>
 
@@ -96,10 +96,10 @@ export function Navbar() {
           </ul>
           <div className="mt-3 flex flex-col gap-2 border-t border-zo-border pt-3">
             <Button variant="outline" size="md" className="w-full" asChild>
-              <Link href="https://app.zoomoff.africa/login">Log in</Link>
+              <Link href="/login">Log in</Link>
             </Button>
             <Button variant="primary" size="md" className="w-full" asChild>
-              <Link href="https://app.zoomoff.africa/register">Post an Errand</Link>
+              <Link href="/register">Post an Errand</Link>
             </Button>
           </div>
         </nav>

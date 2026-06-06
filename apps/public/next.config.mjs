@@ -10,7 +10,12 @@ const securityHeaders = [
 const config = {
   reactStrictMode: true,
   transpilePackages: ["@zoomoff/ui", "@zoomoff/config"],
-  images: { formats: ["image/avif", "image/webp"] },
+  images: {
+    formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com" },
+    ],
+  },
   async headers() { return [{ source: "/(.*)", headers: securityHeaders }]; },
 };
 export default config;
