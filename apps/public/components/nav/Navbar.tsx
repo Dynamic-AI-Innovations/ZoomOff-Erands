@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { label: "Pricing", href: "/pricing" },
   { label: "For Business", href: "/business" },
   { label: "Become a Runner", href: "/become-a-runner" },
+  { label: "Refer & Earn", href: "/referral" },
 ];
 
 export function Navbar() {

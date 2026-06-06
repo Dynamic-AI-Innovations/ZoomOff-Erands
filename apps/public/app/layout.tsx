@@ -3,6 +3,7 @@ import "./globals.css";
 import { Navbar } from "@/components/nav/Navbar";
 import { Footer } from "@/components/nav/Footer";
 import { CookieConsent } from "@/components/CookieConsent";
+import { ReferralCapture } from "@/components/ReferralCapture";
 
 export const metadata: Metadata = {
   title: {
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col">
+        <ReferralCapture />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

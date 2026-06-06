@@ -3,9 +3,10 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Mail, Lock, User, Phone, CheckCircle, Loader2 } from "lucide-react";
+import { ArrowLeft, Mail, Lock, User, Phone, CheckCircle, Loader2, Gift } from "lucide-react";
 import { Button } from "@zoomoff/ui";
 import { cn } from "@zoomoff/ui";
+import { getStoredRef, clearRef } from "@/lib/referral";
 
 type Fields = { name: string; phone: string; email: string; password: string; agreed: boolean };
 type Errs   = Partial<Record<keyof Fields, string>>;
@@ -27,6 +28,9 @@ export function RegisterForm() {
   const [errors, setErrors] = React.useState<Errs>({});
   const [loading, setLoading] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
+  const [referral, setReferral] = React.useState<{ code: string; source: string } | null>(null);
+
+  React.useEffect(() => { setReferral(getStoredRef()); }, []);
 
   const set = (key: keyof Fields) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = key === "agreed" ? e.target.checked : e.target.value;
@@ -40,6 +44,7 @@ export function RegisterForm() {
     setLoading(true);
     await new Promise(r => setTimeout(r, 1500));
     setLoading(false);
+    clearRef();
     setSubmitted(true);
   }
 
@@ -95,6 +100,19 @@ export function RegisterForm() {
         <h1 className="font-display text-2xl font-bold text-brand-charcoal">Create your account</h1>
         <p className="text-sm text-zo-muted mt-1">Post your first errand in under 60 seconds</p>
       </div>
+
+      {referral && (
+        <div className="mb-4 flex items-start gap-3 rounded-xl border border-brand-gold/40 bg-brand-gold/10 px-4 py-3">
+          <Gift className="h-5 w-5 text-brand-gold shrink-0 mt-0.5" aria-hidden="true" />
+          <div>
+            <p className="text-sm font-semibold text-brand-charcoal">You were referred!</p>
+            <p className="text-xs text-zo-muted mt-0.5">
+              You'll receive <span className="font-bold text-brand-gold">₦500 credit</span> on your first completed errand.{" "}
+              Code: <span className="font-mono text-brand-charcoal">{referral.code}</span>
+            </p>
+          </div>
+        </div>
+      )}
 
       <div className="bg-white rounded-2xl border border-zo-border shadow-card p-6 space-y-4">
         {/* Name */}

@@ -7,11 +7,13 @@ const LINKS = {
     { label: "Pricing", href: "/pricing" },
     { label: "Task Categories", href: "/#services" },
     { label: "City Coverage", href: "/#cities" },
+    { label: "Refer & Earn", href: "/referral" },
   ],
   Runners: [
     { label: "Become a Runner", href: "/become-a-runner" },
     { label: "Runner Requirements", href: "/become-a-runner#requirements" },
     { label: "Earnings", href: "/become-a-runner#earnings" },
+    { label: "Refer a Runner", href: "/referral#runners" },
   ],
   Business: [
     { label: "ZoomOff for Business", href: "/business" },
