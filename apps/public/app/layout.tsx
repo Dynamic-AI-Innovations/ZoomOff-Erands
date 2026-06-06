@@ -29,6 +29,11 @@ export const metadata: Metadata = {
     description: "Verified runners ready to handle your errands across Nigeria.",
     images: ["/og-image.png"],
   },
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
   robots: {
     index: true,
     follow: true,
