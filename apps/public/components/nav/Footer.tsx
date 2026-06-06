@@ -5,7 +5,7 @@ const LINKS = {
   Platform: [
     { label: "How It Works", href: "/how-it-works" },
     { label: "Pricing", href: "/pricing" },
-    { label: "Task Categories", href: "/#categories" },
+    { label: "Task Categories", href: "/#services" },
     { label: "City Coverage", href: "/#cities" },
   ],
   Runners: [

@@ -29,7 +29,7 @@ const PLANS = [
       "Dispute resolution",
     ],
     cta: "Get Started",
-    href: "https://app.zoomoff.africa/register",
+    href: "/delegate",
     highlight: false,
   },
   {

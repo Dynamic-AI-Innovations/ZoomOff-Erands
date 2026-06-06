@@ -259,12 +259,51 @@ function Step1({ draft, setDraft, onNext }: {
 }
 
 // ─── Step 2: Auth Gate ────────────────────────────────────────────
+const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
 function Step2({ draft, onBack, onDone }: {
   draft: Draft;
   onBack: () => void;
   onDone: () => void;
 }) {
   const [tab, setTab] = React.useState<"login" | "register">("register");
+  const [reg, setReg] = React.useState({ name: "", phone: "", email: "", password: "" });
+  const [log, setLog] = React.useState({ email: "", password: "" });
+  const [errors, setErrors] = React.useState<Record<string, string>>({});
+  const [loading, setLoading] = React.useState(false);
+
+  const setRegField = (k: keyof typeof reg) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setReg(p => ({ ...p, [k]: e.target.value }));
+    if (errors[k]) setErrors(p => { const n = { ...p }; delete n[k]; return n; });
+  };
+  const setLogField = (k: keyof typeof log) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLog(p => ({ ...p, [k]: e.target.value }));
+    if (errors[k]) setErrors(p => { const n = { ...p }; delete n[k]; return n; });
+  };
+
+  async function handleSubmit() {
+    const e: Record<string, string> = {};
+    if (tab === "register") {
+      if (reg.name.trim().length < 2) e.name = "Full name is required.";
+      if (reg.phone.replace(/\D/g, "").length < 10) e.phone = "Enter a valid phone number.";
+      if (!isEmail(reg.email)) e.email = "Enter a valid email address.";
+      if (reg.password.length < 8) e.password = "Password must be at least 8 characters.";
+    } else {
+      if (!isEmail(log.email)) e.email = "Enter a valid email address.";
+      if (!log.password) e.password = "Password is required.";
+    }
+    if (Object.keys(e).length) { setErrors(e); return; }
+    setErrors({});
+    setLoading(true);
+    await new Promise(r => setTimeout(r, 1200));
+    setLoading(false);
+    onDone();
+  }
+
+  const inputCls = (key: string) => cn(
+    "h-11 w-full rounded-xl border bg-zo-bg-light pl-10 pr-4 text-sm text-brand-charcoal placeholder:text-zo-muted focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition",
+    errors[key] ? "border-red-400" : "border-zo-border"
+  );
 
   return (
     <div className="space-y-5">
@@ -292,12 +331,10 @@ function Step2({ draft, onBack, onDone }: {
           <button
             key={t}
             type="button"
-            onClick={() => setTab(t)}
+            onClick={() => { setTab(t); setErrors({}); }}
             className={cn(
               "flex-1 rounded-lg py-2 text-sm font-semibold transition-all",
-              tab === t
-                ? "bg-white shadow-sm text-brand-charcoal"
-                : "text-zo-muted hover:text-brand-charcoal"
+              tab === t ? "bg-white shadow-sm text-brand-charcoal" : "text-zo-muted hover:text-brand-charcoal"
             )}
           >
             {t === "register" ? "Create Account" : "Log In"}
@@ -307,49 +344,65 @@ function Step2({ draft, onBack, onDone }: {
 
       {tab === "register" ? (
         <div className="space-y-4">
-          <div className="relative">
-            <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zo-muted" aria-hidden="true" />
-            <input type="text" placeholder="Full name" className="h-11 w-full rounded-xl border border-zo-border bg-zo-bg-light pl-10 pr-4 text-sm text-brand-charcoal placeholder:text-zo-muted focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition" />
+          <div>
+            <div className="relative">
+              <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zo-muted" aria-hidden="true" />
+              <input type="text" value={reg.name} onChange={setRegField("name")} placeholder="Full name" className={inputCls("name")} />
+            </div>
+            {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
           </div>
-          <div className="relative">
-            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zo-muted" aria-hidden="true" />
-            <input type="tel" placeholder="Phone number" className="h-11 w-full rounded-xl border border-zo-border bg-zo-bg-light pl-10 pr-4 text-sm text-brand-charcoal placeholder:text-zo-muted focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition" />
+          <div>
+            <div className="relative">
+              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zo-muted" aria-hidden="true" />
+              <input type="tel" value={reg.phone} onChange={setRegField("phone")} placeholder="Phone number" className={inputCls("phone")} />
+            </div>
+            {errors.phone && <p className="text-xs text-red-500 mt-1">{errors.phone}</p>}
           </div>
-          <div className="relative">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zo-muted" aria-hidden="true" />
-            <input type="email" placeholder="Email address" className="h-11 w-full rounded-xl border border-zo-border bg-zo-bg-light pl-10 pr-4 text-sm text-brand-charcoal placeholder:text-zo-muted focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition" />
+          <div>
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zo-muted" aria-hidden="true" />
+              <input type="email" value={reg.email} onChange={setRegField("email")} placeholder="Email address" className={inputCls("email")} />
+            </div>
+            {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
           </div>
-          <div className="relative">
-            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zo-muted" aria-hidden="true" />
-            <input type="password" placeholder="Create a password" className="h-11 w-full rounded-xl border border-zo-border bg-zo-bg-light pl-10 pr-4 text-sm text-brand-charcoal placeholder:text-zo-muted focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition" />
+          <div>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zo-muted" aria-hidden="true" />
+              <input type="password" value={reg.password} onChange={setRegField("password")} placeholder="Create a password (min. 8 chars)" className={inputCls("password")} />
+            </div>
+            {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password}</p>}
           </div>
-          <Button variant="primary" size="lg" className="w-full" onClick={onDone}>
-            Create Account & Submit Errand
-            <ArrowRight className="h-4 w-4 ml-1.5" aria-hidden="true" />
+          <Button variant="primary" size="lg" className="w-full" onClick={handleSubmit} disabled={loading}>
+            {loading ? "Creating account…" : <> Create Account & Submit Errand <ArrowRight className="h-4 w-4 ml-1.5" /></>}
           </Button>
           <p className="text-xs text-zo-muted text-center leading-relaxed">
             By continuing you agree to our{" "}
             <Link href="/legal/terms" className="text-brand-gold hover:underline">Terms</Link>{" "}
-            &{" "}
+            &amp;{" "}
             <Link href="/legal/privacy" className="text-brand-gold hover:underline">Privacy Policy</Link>.
           </p>
         </div>
       ) : (
         <div className="space-y-4">
-          <div className="relative">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zo-muted" aria-hidden="true" />
-            <input type="email" placeholder="Email address" className="h-11 w-full rounded-xl border border-zo-border bg-zo-bg-light pl-10 pr-4 text-sm text-brand-charcoal placeholder:text-zo-muted focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition" />
+          <div>
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zo-muted" aria-hidden="true" />
+              <input type="email" value={log.email} onChange={setLogField("email")} placeholder="Email address" className={inputCls("email")} />
+            </div>
+            {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
           </div>
-          <div className="relative">
-            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zo-muted" aria-hidden="true" />
-            <input type="password" placeholder="Password" className="h-11 w-full rounded-xl border border-zo-border bg-zo-bg-light pl-10 pr-4 text-sm text-brand-charcoal placeholder:text-zo-muted focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition" />
+          <div>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zo-muted" aria-hidden="true" />
+              <input type="password" value={log.password} onChange={setLogField("password")} placeholder="Password" className={inputCls("password")} />
+            </div>
+            {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password}</p>}
           </div>
           <div className="flex justify-end">
             <Link href="/forgot-password" className="text-xs text-brand-gold hover:underline">Forgot password?</Link>
           </div>
-          <Button variant="primary" size="lg" className="w-full" onClick={onDone}>
-            Log In & Submit Errand
-            <ArrowRight className="h-4 w-4 ml-1.5" aria-hidden="true" />
+          <Button variant="primary" size="lg" className="w-full" onClick={handleSubmit} disabled={loading}>
+            {loading ? "Logging in…" : <> Log In & Submit Errand <ArrowRight className="h-4 w-4 ml-1.5" /></>}
           </Button>
         </div>
       )}
@@ -417,7 +470,7 @@ function Step3({ draft }: { draft: Draft }) {
 
       <div className="flex flex-col gap-3">
         <Button variant="primary" size="lg" className="w-full" asChild>
-          <Link href="/register">Go to Your Dashboard</Link>
+          <Link href="/delegate">Post Another Errand</Link>
         </Button>
         <Button variant="outline" size="md" className="w-full" asChild>
           <Link href="/">Back to Home</Link>

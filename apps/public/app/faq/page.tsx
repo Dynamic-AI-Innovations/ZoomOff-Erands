@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { FAQContent } from "./FAQContent";
 
 export const metadata: Metadata = {
@@ -12,7 +13,7 @@ export default function FAQPage() {
       <div className="container-max section-padding">
         <div className="text-center mb-12">
           <h1 className="font-display text-4xl font-bold text-brand-charcoal">Frequently Asked Questions</h1>
-          <p className="mt-3 text-zo-muted max-w-xl mx-auto">Can&apos;t find your answer? <a href="#" className="text-brand-gold hover:underline">Chat with us</a></p>
+          <p className="mt-3 text-zo-muted max-w-xl mx-auto">Can&apos;t find your answer? <Link href="/contact" className="text-brand-gold hover:underline">Chat with us</Link></p>
         </div>
         <FAQContent />
       </div>

@@ -53,7 +53,7 @@ const ACCOUNT_TYPES = [
       "Volume discounts from 20+ tasks/month",
       "Dedicated account manager",
     ],
-    href: "/register",
+    href: "/business-register",
     cta: "Set Up Business Account",
     accent: false,
   },

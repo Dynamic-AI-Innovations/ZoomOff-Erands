@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, ArrowRight, Building2, BarChart3, Shield, Key } from "lucide-react";
 import { Button } from "@zoomoff/ui";
+import { BusinessDemoForm } from "./BusinessDemoForm";
 
 export const metadata: Metadata = {
   title: "ZoomOff for Business — Enterprise Errand Management",
@@ -30,7 +31,7 @@ export default function BusinessPage() {
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Button size="xl" variant="primary" asChild>
-              <Link href="https://business.zoomoff.africa/register">
+              <Link href="/business-register">
                 Start Free Trial <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </Link>
             </Button>
@@ -68,32 +69,8 @@ export default function BusinessPage() {
             <h2 className="font-display text-3xl font-bold text-brand-charcoal">Book a demo</h2>
             <p className="mt-2 text-zo-muted">Talk to our team. We&apos;ll set up your business account in under an hour.</p>
           </div>
-          <div className="rounded-2xl border border-zo-border bg-white p-8 shadow-card space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1.5">
-                <label className="text-sm font-medium text-brand-charcoal">First name</label>
-                <input type="text" className="h-10 w-full rounded-xl border border-zo-border px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold" />
-              </div>
-              <div className="space-y-1.5">
-                <label className="text-sm font-medium text-brand-charcoal">Last name</label>
-                <input type="text" className="h-10 w-full rounded-xl border border-zo-border px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold" />
-              </div>
-            </div>
-            <div className="space-y-1.5">
-              <label className="text-sm font-medium text-brand-charcoal">Work email</label>
-              <input type="email" className="h-10 w-full rounded-xl border border-zo-border px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold" placeholder="you@company.com" />
-            </div>
-            <div className="space-y-1.5">
-              <label className="text-sm font-medium text-brand-charcoal">Company name</label>
-              <input type="text" className="h-10 w-full rounded-xl border border-zo-border px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold" />
-            </div>
-            <div className="space-y-1.5">
-              <label className="text-sm font-medium text-brand-charcoal">Team size</label>
-              <select className="h-10 w-full rounded-xl border border-zo-border px-3 text-sm bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold">
-                <option>1–10</option><option>11–50</option><option>51–200</option><option>200+</option>
-              </select>
-            </div>
-            <Button variant="primary" size="lg" className="w-full">Request Demo</Button>
+          <div className="rounded-2xl border border-zo-border bg-white p-8 shadow-card">
+            <BusinessDemoForm />
           </div>
         </div>
       </section>

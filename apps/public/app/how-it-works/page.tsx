@@ -90,7 +90,7 @@ export default function HowItWorksPage() {
           </div>
           <div className="mt-8 text-center">
             <Button variant="primary" size="lg" asChild>
-              <Link href="https://app.zoomoff.africa/register">
+              <Link href="/delegate">
                 Post Your First Errand
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </Link>
