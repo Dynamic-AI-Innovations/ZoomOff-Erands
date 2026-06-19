@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowLeft, User, Phone, Mail, Lock, MapPin, Bike, CheckCircle, Loader2, Star } from "lucide-react";
 import { Button } from "@zoomoff/ui";
 import { cn } from "@zoomoff/ui";
+import { supabase } from "@zoomoff/api-client";
 
 const CITIES = ["Lagos", "Abuja", "Port Harcourt", "Other"];
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
@@ -40,7 +41,43 @@ export function RunnerApplyForm() {
     const errs = validate(fields);
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setLoading(true);
-    await new Promise(r => setTimeout(r, 1600));
+
+    // Create Supabase account — this automatically sends a confirmation email
+    const { data, error: signUpError } = await supabase.auth.signUp({
+      email: fields.email,
+      password: fields.password,
+      options: {
+        data: {
+          name: fields.name,
+          phone: fields.phone,
+          city: fields.city,
+          role: "runner",
+        },
+      },
+    });
+
+    if (signUpError) {
+      setErrors({
+        email: signUpError.message.toLowerCase().includes("already registered")
+          ? "This email is already registered. Try logging in instead."
+          : signUpError.message,
+      });
+      setLoading(false);
+      return;
+    }
+
+    // Store application details alongside the auth record
+    if (data.user) {
+      await supabase.from("runner_applications").insert({
+        user_id: data.user.id,
+        id_type: "pending",
+        id_number: "",
+        vehicle_type: "motorcycle",
+        bio: `Phone: ${fields.phone} | City: ${fields.city}`,
+        status: "pending",
+      });
+    }
+
     setLoading(false);
     setSubmitted(true);
   }

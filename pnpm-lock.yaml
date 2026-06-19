@@ -221,6 +221,9 @@ importers:
 
   apps/public:
     dependencies:
+      '@zoomoff/api-client':
+        specifier: workspace:*
+        version: link:../../packages/api-client
       '@zoomoff/config':
         specifier: workspace:*
         version: link:../../packages/config
