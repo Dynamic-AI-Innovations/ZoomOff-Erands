@@ -10,6 +10,7 @@ import type { Task, TaskStatus } from "@zoomoff/api-client";
 import { TaskChat } from "./TaskChat";
 import { RatingModal } from "./RatingModal";
 import { SOSModal } from "./SOSModal";
+import { useTaskRealtime } from "../../hooks/useTaskRealtime";
 
 const STATUS_STEPS: { key: TaskStatus; label: string }[] = [
   { key: "posted", label: "Posted" },
@@ -40,12 +41,20 @@ export function LiveTrackingView({ taskId }: { taskId: string }) {
   const { data: task, isLoading } = useQuery({
     queryKey: ["task", taskId],
     queryFn: () => tasksApi.getById(taskId),
+    // Fallback poll at 30s — Supabase real-time is the primary update path
     refetchInterval: (q) => {
       const t = q.state.data;
       if (!t || ["completed", "cancelled", "disputed"].includes(t.status)) return false;
-      return 5000; // poll every 5s for live status
+      return 30_000;
     },
   });
+
+  // Real-time status updates via Supabase — fires instantly on any task UPDATE
+  const handleRealtimeUpdate = React.useCallback(() => {
+    void queryClient.invalidateQueries({ queryKey: ["task", taskId] });
+  }, [queryClient, taskId]);
+
+  useTaskRealtime(taskId, handleRealtimeUpdate);
 
   const { mutate: confirmCompletion, isPending: confirming } = useMutation({
     mutationFn: () => tasksApi.confirm(taskId),

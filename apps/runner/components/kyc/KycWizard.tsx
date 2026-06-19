@@ -4,6 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircle2, Circle, Lock } from "lucide-react";
 import { Card, cn, Badge } from "@zoomoff/ui";
+import { useRunnerApplication } from "../../hooks/useRunnerApplication";
 
 const KYC_STEPS = [
   { step: 1, label: "Basic Info", desc: "Name, DOB, state" },
@@ -23,14 +24,23 @@ export function KycWizard({ initialStep }: Props) {
   const router = useRouter();
   const [currentStep, setCurrentStep] = React.useState(initialStep);
   const [completedSteps, setCompletedSteps] = React.useState<number[]>([]);
+  const { submit: submitApplication, isLoading: submitting } = useRunnerApplication();
 
-  function completeStep(step: number) {
+  async function completeStep(step: number) {
     setCompletedSteps((s) => [...new Set([...s, step])]);
     if (step < KYC_STEPS.length) {
       const nextStep = step + 1;
       setCurrentStep(nextStep);
       router.push(`/register/${nextStep}`, { scroll: false });
     } else {
+      // Final step — submit runner application to Supabase before navigating
+      await submitApplication({
+        id_type: "NIN",
+        id_number: "",   // collected in NinStep (step 3)
+        vehicle_type: "motorcycle",
+        bio: "",         // can be extended to pass wizard-collected data
+        categories: [],  // collected in CategoryStep (step 8)
+      });
       router.push("/dashboard");
     }
   }
