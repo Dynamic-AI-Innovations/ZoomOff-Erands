@@ -17,13 +17,13 @@ export default function DashboardPage() {
       <Card className="bg-gradient-to-br from-brand-charcoal to-brand-charcoal-light text-white border-0">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="font-display text-lg font-bold text-white">Post a new errand</h2>
+            <h2 className="font-display text-lg font-bold text-white">Request a new errand</h2>
             <p className="text-sm text-gray-400 mt-1">Get matched with a verified runner in under 5 minutes</p>
           </div>
           <Button variant="primary" size="md" asChild>
             <Link href="/post-errand">
               <PlusCircle className="h-4 w-4" />
-              Post
+              Request
             </Link>
           </Button>
         </div>
@@ -66,7 +66,7 @@ export default function DashboardPage() {
           <p className="text-sm font-semibold text-brand-charcoal">No errands yet</p>
           <p className="text-xs text-zo-muted mt-1">Your completed and active errands will appear here</p>
           <Button variant="primary" size="sm" className="mt-4" asChild>
-            <Link href="/post-errand">Post your first errand</Link>
+            <Link href="/post-errand">Request your first errand</Link>
           </Button>
         </div>
       </Card>

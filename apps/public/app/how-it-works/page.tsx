@@ -91,7 +91,7 @@ export default function HowItWorksPage() {
           <div className="mt-8 text-center">
             <Button variant="primary" size="lg" asChild>
               <Link href="/delegate">
-                Post Your First Errand
+                Request Your First Errand
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </Link>
             </Button>

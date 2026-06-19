@@ -169,7 +169,7 @@ export default function HomePage() {
               <div className="mt-10">
                 <Button variant="primary" size="lg" asChild>
                   <Link href="/delegate">
-                    Delegate your first errand
+                    Request your first errand
                     <ArrowRight className="h-4 w-4 ml-1.5" aria-hidden="true" />
                   </Link>
                 </Button>
@@ -500,7 +500,7 @@ export default function HomePage() {
           <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Button size="xl" variant="primary" asChild>
               <Link href="/delegate">
-                Post an Errand — It&apos;s Free
+                Request an Errand — It&apos;s Free
                 <ArrowRight className="h-5 w-5 ml-1.5" aria-hidden="true" />
               </Link>
             </Button>

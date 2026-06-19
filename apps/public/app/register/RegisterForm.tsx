@@ -65,7 +65,7 @@ export function RegisterForm() {
           {[
             "Check your inbox (and spam folder)",
             "Click the verification link in the email",
-            "Log in and delegate your first errand",
+            "Log in and request your first errand",
           ].map((step, i) => (
             <div key={i} className="flex items-center gap-3 text-sm text-brand-charcoal">
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-gold/15 text-brand-gold font-bold text-xs">{i + 1}</span>

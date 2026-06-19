@@ -470,7 +470,7 @@ function Step3({ draft }: { draft: Draft }) {
 
       <div className="flex flex-col gap-3">
         <Button variant="primary" size="lg" className="w-full" asChild>
-          <Link href="/delegate">Post Another Errand</Link>
+          <Link href="/delegate">Request Another Errand</Link>
         </Button>
         <Button variant="outline" size="md" className="w-full" asChild>
           <Link href="/">Back to Home</Link>

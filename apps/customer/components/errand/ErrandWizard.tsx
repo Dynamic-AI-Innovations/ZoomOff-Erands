@@ -35,7 +35,7 @@ export function ErrandWizard() {
   return (
     <div className="mx-auto max-w-2xl">
       <div className="mb-6">
-        <h1 className="font-display text-2xl font-bold text-brand-charcoal">Post an Errand</h1>
+        <h1 className="font-display text-2xl font-bold text-brand-charcoal">Request an Errand</h1>
         <p className="text-sm text-zo-muted mt-1">Step {currentStep} of {STEPS.length}</p>
       </div>
 

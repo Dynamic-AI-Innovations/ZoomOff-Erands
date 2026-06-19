@@ -13,7 +13,7 @@ import { useAuthStore } from "@zoomoff/auth";
 
 const NAV_ITEMS = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { label: "Post Errand", href: "/post-errand", icon: PlusCircle },
+  { label: "Request Errand", href: "/post-errand", icon: PlusCircle },
   { label: "My Tasks", href: "/tasks", icon: ClipboardList },
   { label: "Wallet", href: "/wallet", icon: Wallet },
   { label: "Profile", href: "/profile", icon: User },

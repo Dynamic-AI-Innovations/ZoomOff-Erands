@@ -137,7 +137,7 @@ export function AppExperienceTabs() {
                   Your personal assistant, on demand
                 </h3>
                 <p className="mt-4 text-zo-muted leading-relaxed">
-                  Post errands, track your runner on a live map, chat in real time, pay securely, and rate your experience — all from a single platform built for Nigeria.
+                  Request errands, track your runner on a live map, chat in real time, pay securely, and rate your experience — all from a single platform built for Nigeria.
                 </p>
                 <ul className="mt-8 space-y-5">
                   {CUSTOMER_FEATURES.map(({ icon: Icon, title, desc }) => (
@@ -154,7 +154,7 @@ export function AppExperienceTabs() {
                 </ul>
                 <div className="mt-10 flex gap-3 flex-wrap">
                   <Button variant="primary" size="lg" asChild>
-                    <Link href="/delegate">Delegate an Errand Free</Link>
+                    <Link href="/delegate">Request an Errand Free</Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild>
                     <Link href="/how-it-works" className="flex items-center gap-2">

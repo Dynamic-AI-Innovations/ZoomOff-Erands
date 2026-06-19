@@ -14,15 +14,15 @@ const ACCOUNT_TYPES = [
     tag: "Most popular",
     title: "I need errands done",
     subtitle: "Customer account",
-    desc: "Delegate grocery runs, deliveries, banking, document pickups and more to a verified runner.",
+    desc: "Request grocery runs, deliveries, banking, document pickups and more from a verified runner.",
     perks: [
-      "Post any errand in 60 seconds",
+      "Request any errand in 60 seconds",
       "Real-time GPS tracking on every task",
       "Escrow payment — pay only when done",
       "Instant or scheduled, 7 days a week",
     ],
     href: "/delegate",
-    cta: "Delegate an Errand Free",
+    cta: "Request an Errand Free",
     accent: true,
   },
   {

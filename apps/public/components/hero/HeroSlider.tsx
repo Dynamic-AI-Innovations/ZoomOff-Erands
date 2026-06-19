@@ -30,7 +30,7 @@ const SLIDES = [
     alt: "Busy professional saving time",
     headline: "Too busy for",
     accent: "queues & errands?",
-    sub: "Delegate your entire to-do list. Bank runs, document pickups, grocery shopping — all handled while you focus on what matters.",
+    sub: "Request any errand — bank runs, document pickups, grocery shopping — all handled while you focus on what matters.",
   },
   {
     img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1600&h=900&fit=crop&auto=format&q=80",
@@ -143,7 +143,7 @@ export function HeroSlider() {
           <div className="mt-12 flex flex-wrap gap-4">
             <Button size="xl" variant="primary" asChild>
               <Link href="/delegate">
-                Delegate an Errand Free
+                Request an Errand Free
                 <ArrowRight className="h-5 w-5 ml-1.5" aria-hidden="true" />
               </Link>
             </Button>

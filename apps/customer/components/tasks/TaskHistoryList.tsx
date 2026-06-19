@@ -76,10 +76,10 @@ export function TaskHistoryList() {
         <Card className="text-center py-16">
           <p className="text-sm font-semibold text-brand-charcoal">No errands found</p>
           <p className="text-xs text-zo-muted mt-1">
-            {statusFilter ? `No ${statusFilter} errands yet` : "Post your first errand to get started"}
+            {statusFilter ? `No ${statusFilter} errands yet` : "Request your first errand to get started"}
           </p>
           <Button variant="primary" size="sm" className="mt-4" asChild>
-            <Link href="/post-errand">Post an Errand</Link>
+            <Link href="/post-errand">Request an Errand</Link>
           </Button>
         </Card>
       )}

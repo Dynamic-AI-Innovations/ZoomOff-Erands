@@ -2,7 +2,7 @@
 import { DelegateFlow } from "./DelegateFlow";
 
 export const metadata: Metadata = {
-  title: "Delegate an Errand | ZoomOff Errands",
+  title: "Request an Errand | ZoomOff Errands",
   description: "Describe what you need done, and a verified ZoomOff Errands runner will handle it for you.",
 };
 
