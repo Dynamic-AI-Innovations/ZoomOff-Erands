@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import Link from "next/link";
@@ -74,8 +74,8 @@ export function InviteDashboard() {
   }
 
   const currentTab = TABS.find(t => t.key === tab)!;
-  const whatsappMsg = encodeURIComponent(`Hey! I use ZoomOff for fast, trusted errands in Nigeria. Use my referral link to sign up and we both earn rewards: ${shareUrl}`);
-  const tweetMsg    = encodeURIComponent(`I use @ZoomOffNG for fast errands — you should too! Sign up via my link and we both earn: `);
+  const whatsappMsg = encodeURIComponent(`Hey! I use ZoomOff Errands for fast, trusted errands in Nigeria. Use my referral link to sign up and we both earn rewards: ${shareUrl}`);
+  const tweetMsg    = encodeURIComponent(`I use @ZoomOff ErrandsNG for fast errands — you should too! Sign up via my link and we both earn: `);
 
   return (
     <div className="py-12">

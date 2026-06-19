@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: { default: "ZoomOff", template: "%s | ZoomOff" },
+  title: { default: "ZoomOff Errands", template: "%s | ZoomOff Errands" },
   description: "Your errands, handled fast.",
   robots: { index: false, follow: false },
 };

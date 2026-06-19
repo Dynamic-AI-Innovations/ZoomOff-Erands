@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import Link from "next/link";
@@ -41,7 +41,7 @@ export function WalletView() {
     <div className="max-w-2xl mx-auto space-y-6">
       <div>
         <h1 className="font-display text-2xl font-bold text-brand-charcoal">Wallet</h1>
-        <p className="text-sm text-zo-muted mt-1">Manage your ZoomOff balance and transaction history</p>
+        <p className="text-sm text-zo-muted mt-1">Manage your ZoomOff Errands balance and transaction history</p>
       </div>
 
       {/* Balance card */}

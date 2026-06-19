@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, ArrowRight, Zap } from "lucide-react";
 import { Button, Badge } from "@zoomoff/ui";
@@ -24,7 +24,7 @@ const PLANS = [
       "Unlimited errand requests",
       "Live GPS tracking",
       "In-app chat with runner",
-      "ZoomOff Wallet",
+      "ZoomOff Errands Wallet",
       "Digital receipts",
       "Dispute resolution",
     ],

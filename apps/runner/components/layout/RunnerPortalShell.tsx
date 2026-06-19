@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,7 +24,7 @@ export function RunnerPortalShell({ children }: { children: React.ReactNode }) {
       {/* Top bar */}
       <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-zo-border bg-white px-4">
         <Link href="/dashboard" className="flex items-center gap-1.5">
-          <Image src="/logo.png" alt="ZoomOff" width={80} height={32} className="h-8 w-auto object-contain" unoptimized />
+          <Image src="/logo.png" alt="ZoomOff Errands" width={80} height={32} className="h-8 w-auto object-contain" unoptimized />
           <span className="text-xs font-semibold tracking-widest uppercase text-zo-muted">Runner</span>
         </Link>
         <div className="flex items-center gap-3">

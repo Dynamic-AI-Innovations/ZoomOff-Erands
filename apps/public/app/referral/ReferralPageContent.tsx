@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import Link from "next/link";
@@ -49,7 +49,7 @@ const TRACKS = [
 ];
 
 const FAQ_ITEMS = [
-  { q: "When do I receive my credit?", a: "Credits are added to your ZoomOff wallet automatically once the milestone is reached. You'll receive an in-app notification and an email." },
+  { q: "When do I receive my credit?", a: "Credits are added to your ZoomOff Errands wallet automatically once the milestone is reached. You'll receive an in-app notification and an email." },
   { q: "Is there a limit on how many people I can refer?", a: "No limit at all. Refer 1 friend or 1,000 — every valid referral that hits the milestone earns you the full reward." },
   { q: "What if my referral doesn't use my link?", a: "Referrals must sign up via your unique link for the reward to be tracked. Ask them to use the link directly — you can also share via WhatsApp to make it easy." },
   { q: "How long is a referral link valid?", a: "Referral links don't expire. However, the referral credit must be claimed within 90 days of the referred user signing up." },
@@ -90,7 +90,7 @@ export function ReferralPageContent() {
             Referral Programme
           </span>
           <h1 className="font-display text-4xl font-extrabold text-white md:text-5xl tracking-tight text-balance">
-            Earn real money by <span className="text-brand-gold">sharing ZoomOff</span>
+            Earn real money by <span className="text-brand-gold">sharing ZoomOff Errands</span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-gray-300 text-balance">
             Share your unique link. Friends sign up. Milestones trigger. Cash hits your wallet. No cap on earnings.
@@ -198,7 +198,7 @@ export function ReferralPageContent() {
               { n: 2, icon: Users,       title: "Share it",             desc: "Send via WhatsApp, Twitter, email, or anywhere." },
               { n: 3, icon: CheckCircle, title: "They sign up",         desc: "Your contact creates an account using your link." },
               { n: 4, icon: Zap,         title: "Milestone hit",        desc: "They complete their first errand, task, or order." },
-              { n: 5, icon: Gift,        title: "Credit lands",         desc: "Your reward hits your ZoomOff wallet automatically." },
+              { n: 5, icon: Gift,        title: "Credit lands",         desc: "Your reward hits your ZoomOff Errands wallet automatically." },
             ].map(({ n, icon: Icon, title, desc }) => (
               <div key={n} className="text-center">
                 <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white border-2 border-brand-gold/30 mx-auto mb-4 shadow-card">

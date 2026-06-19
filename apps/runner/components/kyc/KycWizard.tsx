@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
@@ -52,7 +52,7 @@ export function KycWizard({ initialStep }: Props) {
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-gold mx-auto mb-4">
             <span className="font-display text-xl font-bold text-brand-charcoal">Z</span>
           </div>
-          <h1 className="font-display text-2xl font-bold text-brand-charcoal">Become a ZoomOff Runner</h1>
+          <h1 className="font-display text-2xl font-bold text-brand-charcoal">Become a ZoomOff Errands Runner</h1>
           <p className="text-sm text-zo-muted mt-1">Complete all steps to start accepting tasks</p>
           <div className="mt-3">
             <div className="flex gap-1 justify-center">

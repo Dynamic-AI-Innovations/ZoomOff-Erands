@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Suspense } from "react";
 import Image from "next/image";
 import { LoginForm } from "@/components/auth/LoginForm";
@@ -13,7 +13,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
           <Link href="https://zoomoff.africa" className="inline-block mb-6">
-            <Image src="/logo.png" alt="ZoomOff" width={160} height={64} className="h-16 w-auto object-contain" unoptimized />
+            <Image src="/logo.png" alt="ZoomOff Errands" width={160} height={64} className="h-16 w-auto object-contain" unoptimized />
           </Link>
           <h1 className="font-display text-2xl font-bold text-brand-charcoal">Welcome back</h1>
           <p className="mt-1 text-sm text-zo-muted">Log in to manage your errands</p>

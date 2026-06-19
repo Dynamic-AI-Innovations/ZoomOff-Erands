@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import Image from "next/image";
@@ -34,10 +34,10 @@ export function Navbar() {
     >
       <div className="container-max section-padding flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-0" aria-label="ZoomOff home">
+        <Link href="/" className="flex items-center gap-0" aria-label="ZoomOff Errands home">
           <Image
             src="/logo.png"
-            alt="ZoomOff Errand Services"
+            alt="ZoomOff Errands"
             width={120}
             height={48}
             className="h-12 w-auto object-contain"

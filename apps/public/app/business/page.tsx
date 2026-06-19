@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, ArrowRight, Building2, BarChart3, Shield, Key } from "lucide-react";
 import { Button } from "@zoomoff/ui";
 import { BusinessDemoForm } from "./BusinessDemoForm";
 
 export const metadata: Metadata = {
-  title: "ZoomOff for Business — Enterprise Errand Management",
+  title: "ZoomOff Errands for Business — Enterprise Errand Management",
   description: "Team task management, approval workflows, spend analytics and API access for businesses of all sizes.",
 };
 
@@ -24,7 +24,7 @@ export default function BusinessPage() {
       <section className="bg-zo-bg-dark py-20">
         <div className="container-max section-padding text-center">
           <h1 className="font-display text-4xl font-bold text-white md:text-5xl text-balance">
-            ZoomOff for <span className="text-brand-gold">Business</span>
+            ZoomOff Errands for <span className="text-brand-gold">Business</span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-gray-300 text-balance">
             Move packages, pay bills, pick up documents — managed centrally across your entire team with full approval controls and spend visibility.

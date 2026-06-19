@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: { default: "ZoomOff Runners", template: "%s | ZoomOff Runners" },
+  title: { default: "ZoomOff Errands Runners", template: "%s | ZoomOff Errands Runners" },
   description: "Manage your runner profile, tasks, and earnings.",
   robots: { index: false, follow: false },
 };

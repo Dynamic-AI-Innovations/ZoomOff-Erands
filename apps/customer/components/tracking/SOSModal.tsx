@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import { AlertOctagon, Phone } from "lucide-react";
@@ -16,7 +16,7 @@ export function SOSModal({ taskId, onClose }: Props) {
     mutationFn: () => apiClient.post(`/tasks/${taskId}/sos`),
     onSuccess: () => {
       setSent(true);
-      toast({ type: "error", title: "SOS sent!", description: "ZoomOff Safety Team has been notified." });
+      toast({ type: "error", title: "SOS sent!", description: "ZoomOff Errands Safety Team has been notified." });
     },
     onError: () => toast({ type: "error", title: "Could not send SOS. Call support directly." }),
   });
@@ -33,7 +33,7 @@ export function SOSModal({ taskId, onClose }: Props) {
             <div>
               <p className="font-semibold text-brand-charcoal">Do you need emergency help?</p>
               <p className="text-sm text-zo-muted mt-1">
-                Tapping SOS will immediately alert the ZoomOff Safety Team and attempt to call you.
+                Tapping SOS will immediately alert the ZoomOff Errands Safety Team and attempt to call you.
               </p>
             </div>
             <div className="flex gap-3">

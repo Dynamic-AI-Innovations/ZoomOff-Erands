@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import Image from "next/image";
@@ -37,7 +37,7 @@ export function PortalShell({ children }: { children: React.ReactNode }) {
       >
         <div className="flex h-16 items-center justify-between px-5 border-b border-zo-border">
           <Link href="/dashboard">
-            <Image src="/logo.png" alt="ZoomOff" width={100} height={40} className="h-10 w-auto object-contain" unoptimized />
+            <Image src="/logo.png" alt="ZoomOff Errands" width={100} height={40} className="h-10 w-auto object-contain" unoptimized />
           </Link>
           <button
             className="md:hidden p-1 rounded-lg hover:bg-zo-bg-light"

@@ -9,20 +9,25 @@ import { useErrandStore, type AddressField } from "@/lib/errand-store";
 // In production replace with Google Places Autocomplete component.
 function AddressInput({
   label,
+  required,
   value,
   onChange,
   placeholder,
+  error,
 }: {
   label: string;
+  required?: boolean;
   value: AddressField | null;
   onChange: (val: AddressField) => void;
   placeholder: string;
+  error?: string;
 }) {
   return (
     <div className="space-y-1.5">
       <label className="text-sm font-medium text-brand-charcoal flex items-center gap-1.5">
         <MapPin className="h-3.5 w-3.5 text-brand-gold" aria-hidden="true" />
         {label}
+        {required && <span className="text-zo-error font-bold" aria-hidden="true">*</span>}
       </label>
       <Input
         type="text"
@@ -31,7 +36,8 @@ function AddressInput({
         onChange={(e) =>
           onChange({ address: e.target.value, lat: 0, lng: 0 })
         }
-        helperText="Google Maps autocomplete will be wired to backend API"
+        error={error}
+        helperText={error ? undefined : "Google Maps autocomplete will be wired to backend API"}
       />
     </div>
   );
@@ -42,6 +48,7 @@ export function Step3Addresses() {
   const [pickup, setPickup] = React.useState<AddressField | null>(draft.pickup);
   const [destination, setDestination] = React.useState<AddressField | null>(draft.destination);
   const [waypoints, setWaypoints] = React.useState<AddressField[]>(draft.waypoints);
+  const [attempted, setAttempted] = React.useState(false);
 
   function addWaypoint() {
     if (waypoints.length < 3) setWaypoints((w) => [...w, { address: "", lat: 0, lng: 0 }]);
@@ -55,9 +62,13 @@ export function Step3Addresses() {
     setWaypoints((w) => w.map((wp, idx) => (idx === i ? val : wp)));
   }
 
-  const canContinue = !!pickup?.address && !!destination?.address;
+  const pickupMissing = !pickup?.address;
+  const destinationMissing = !destination?.address;
+  const canContinue = !pickupMissing && !destinationMissing;
 
   function next() {
+    setAttempted(true);
+    if (!canContinue) return;
     updateDraft({ pickup, destination, waypoints });
     setStep(4);
   }
@@ -65,16 +76,21 @@ export function Step3Addresses() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-display text-lg font-bold text-brand-charcoal">Pickup & destination</h2>
-        <p className="text-sm text-zo-muted mt-1">Where should your runner go?</p>
+        <h2 className="font-display text-lg font-bold text-brand-charcoal">Pickup & drop-off</h2>
+        <p className="text-sm text-zo-muted mt-1">
+          Where should your runner go?{" "}
+          <span className="text-zo-error font-medium">* Required</span>
+        </p>
       </div>
 
       <div className="space-y-4">
         <AddressInput
           label="Pickup address"
+          required
           value={pickup}
           onChange={setPickup}
           placeholder="Where should the runner pick up from?"
+          error={attempted && pickupMissing ? "Pickup address is required" : undefined}
         />
 
         {waypoints.map((wp, i) => (
@@ -107,10 +123,12 @@ export function Step3Addresses() {
         )}
 
         <AddressInput
-          label="Final destination"
+          label="Drop-off / delivery address"
+          required
           value={destination}
           onChange={setDestination}
           placeholder="Where should the runner deliver to?"
+          error={attempted && destinationMissing ? "Drop-off address is required" : undefined}
         />
       </div>
 
@@ -124,7 +142,7 @@ export function Step3Addresses() {
 
       <div className="flex items-center justify-between pt-2">
         <Button variant="ghost" onClick={() => setStep(2)}>← Back</Button>
-        <Button variant="primary" size="lg" disabled={!canContinue} onClick={next}>
+        <Button variant="primary" size="lg" onClick={next}>
           Continue →
         </Button>
       </div>

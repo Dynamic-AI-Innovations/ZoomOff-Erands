@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Shield, DollarSign, Star } from "lucide-react";
 import { Button } from "@zoomoff/ui";
@@ -6,7 +6,7 @@ import { EarningsCalculator } from "./EarningsCalculator";
 
 export const metadata: Metadata = {
   title: "Become a Runner — Earn on Your Schedule",
-  description: "Join ZoomOff as a verified runner. Earn ₦25,000–₦150,000/month running errands on your own schedule.",
+  description: "Join ZoomOff Errands as a verified runner. Earn ₦25,000–₦150,000/month running errands on your own schedule.",
 };
 
 const REQUIREMENTS = [
@@ -20,7 +20,7 @@ const REQUIREMENTS = [
 const PERKS = [
   { icon: DollarSign, title: "Earn ₦25k–₦120k/month", desc: "Keep your own schedule. More hours = more earnings." },
   { icon: Star, title: "Elite tier bonuses", desc: "Top-rated runners unlock same-day withdrawals and 15% bonus." },
-  { icon: Shield, title: "Insured on every task", desc: "All active tasks covered under ZoomOff's runner protection." },
+  { icon: Shield, title: "Insured on every task", desc: "All active tasks covered under ZoomOff Errands's runner protection." },
 ];
 
 export default function BecomeARunnerPage() {
@@ -33,7 +33,7 @@ export default function BecomeARunnerPage() {
             Run errands. <span className="text-brand-gold">Earn daily.</span>
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-lg text-gray-300 text-balance">
-            Join thousands of ZoomOff runners earning on their own schedule. Apply in 10 minutes, earn within 24 hours of approval.
+            Join thousands of ZoomOff Errands runners earning on their own schedule. Apply in 10 minutes, earn within 24 hours of approval.
           </p>
           <Button size="xl" variant="primary" className="mt-8" asChild>
             <Link href="/runner-apply">

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import Image from "next/image";
@@ -131,7 +131,7 @@ export function RunnerApplyForm() {
           </Link>
 
           <div className="mb-8">
-            <Image src="/logo.png" alt="ZoomOff" width={160} height={64} className="h-16 w-auto object-contain mb-5" priority />
+            <Image src="/logo.png" alt="ZoomOff Errands" width={160} height={64} className="h-16 w-auto object-contain mb-5" priority />
             <div className="flex items-center gap-3 mb-2">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-gold/15 text-brand-gold">
                 <Bike className="h-5 w-5" aria-hidden="true" />

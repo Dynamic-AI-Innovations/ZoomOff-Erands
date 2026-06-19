@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,7 +40,7 @@ export function AdminLoginForm() {
     mutationFn: (data: LoginInput) => authApi.login(data),
     onSuccess: ({ user }) => {
       if (!["zo_admin", "zo_super_admin"].includes(user.role)) {
-        toast({ type: "error", title: "Access denied", description: "This console is for ZoomOff staff only." });
+        toast({ type: "error", title: "Access denied", description: "This console is for ZoomOff Errands staff only." });
         return;
       }
       setStep("mfa");

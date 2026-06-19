@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { RegisterForm } from "./RegisterForm";
 
-export const metadata: Metadata = { title: "Sign Up | ZoomOff" };
+export const metadata: Metadata = { title: "Sign Up | ZoomOff Errands" };
 
 export default function RegisterPage() {
   return (

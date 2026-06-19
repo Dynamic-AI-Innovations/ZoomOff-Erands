@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import Image from "next/image";
@@ -68,7 +68,7 @@ export function ForgotPasswordForm() {
       </Link>
 
       <div className="mb-8">
-        <Image src="/logo.png" alt="ZoomOff" width={160} height={64} className="h-16 w-auto object-contain mb-5" priority />
+        <Image src="/logo.png" alt="ZoomOff Errands" width={160} height={64} className="h-16 w-auto object-contain mb-5" priority />
         <h1 className="font-display text-2xl font-bold text-brand-charcoal">Reset your password</h1>
         <p className="text-sm text-zo-muted mt-1 leading-relaxed">
           Enter the email linked to your account and we&apos;ll send a reset link.

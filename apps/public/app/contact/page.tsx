@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { Mail, Phone, MapPin, MessageCircle, ArrowRight, Clock } from "lucide-react";
 import { ContactForm } from "./ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact Us | ZoomOff",
-  description: "Get in touch with the ZoomOff team. We're here to help with any questions about errands, runner applications, or business accounts.",
+  title: "Contact Us | ZoomOff Errands",
+  description: "Get in touch with the ZoomOff Errands team. We're here to help with any questions about errands, runner applications, or business accounts.",
 };
 
 const CHANNELS = [
@@ -47,7 +47,7 @@ export default function ContactPage() {
         <div className="text-center mb-14">
           <p className="text-xs font-bold text-brand-gold uppercase tracking-[0.2em] mb-3">We&apos;re here</p>
           <h1 className="font-display text-4xl font-extrabold text-brand-charcoal md:text-5xl tracking-tight">
-            Contact ZoomOff
+            Contact ZoomOff Errands
           </h1>
           <p className="mt-4 text-zo-muted max-w-md mx-auto">
             Questions about an errand, a payment, or your account? Reach us through any of the channels below.

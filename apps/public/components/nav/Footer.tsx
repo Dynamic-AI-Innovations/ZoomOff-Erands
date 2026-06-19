@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 
 const LINKS = {
@@ -16,7 +16,7 @@ const LINKS = {
     { label: "Refer a Runner", href: "/referral#runners" },
   ],
   Business: [
-    { label: "ZoomOff for Business", href: "/business" },
+    { label: "ZoomOff Errands for Business", href: "/business" },
     { label: "Enterprise Plans", href: "/business#pricing" },
     { label: "API Access", href: "/business#api" },
   ],
@@ -35,7 +35,7 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Image src="/logo.png" alt="ZoomOff Errand Services" width={140} height={56} className="h-14 w-auto object-contain" />
+            <Image src="/logo.png" alt="ZoomOff Errands Errand Services" width={140} height={56} className="h-14 w-auto object-contain" />
             <p className="mt-3 text-sm text-gray-400 leading-relaxed">
               Fast · Trusted · Connected · Convenient · Premium
             </p>

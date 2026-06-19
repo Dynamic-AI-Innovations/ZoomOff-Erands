@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,7 +26,7 @@ export function BusinessPortalShell({ children }: { children: React.ReactNode })
       <aside className={cn("fixed inset-y-0 left-0 z-50 flex w-60 flex-col bg-white border-r border-zo-border transition-transform md:translate-x-0", open ? "translate-x-0" : "-translate-x-full")}>
         <div className="flex h-16 items-center justify-between px-5 border-b border-zo-border">
           <Link href="/dashboard" className="flex items-center gap-1.5">
-            <Image src="/logo.png" alt="ZoomOff" width={80} height={32} className="h-8 w-auto object-contain" unoptimized />
+            <Image src="/logo.png" alt="ZoomOff Errands" width={80} height={32} className="h-8 w-auto object-contain" unoptimized />
             <span className="text-xs font-semibold tracking-widest uppercase text-zo-muted">Business</span>
           </Link>
           <button className="md:hidden p-1 rounded" onClick={() => setOpen(false)} aria-label="Close"><X className="h-4 w-4" /></button>

@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ShoppingCart, Bike, Building2, CheckCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Get Started | ZoomOff",
-  description: "Join ZoomOff as a customer, runner, or business. Choose your account type to get started.",
+  title: "Get Started | ZoomOff Errands",
+  description: "Join ZoomOff Errands as a customer, runner, or business. Choose your account type to get started.",
 };
 
 const ACCOUNT_TYPES = [
@@ -35,7 +35,7 @@ const ACCOUNT_TYPES = [
       "Earn ₦3,500+ per task on average",
       "Same-day payout to any Nigerian bank",
       "Choose which tasks you accept",
-      "Full ZoomOff runner insurance cover",
+      "Full ZoomOff Errands runner insurance cover",
     ],
     href: "/runner-apply",
     cta: "Apply as a Runner",
@@ -66,7 +66,7 @@ export default function GetStartedPage() {
       <div className="border-b border-zo-border bg-white">
         <div className="container-max section-padding flex h-16 items-center justify-between">
           <Link href="/">
-            <Image src="/logo.png" alt="ZoomOff" width={100} height={40} className="h-10 w-auto object-contain" priority />
+            <Image src="/logo.png" alt="ZoomOff Errands" width={100} height={40} className="h-10 w-auto object-contain" priority />
           </Link>
           <Link href="/login" className="text-sm font-medium text-zo-muted hover:text-brand-charcoal transition-colors">
             Already have an account? <span className="text-brand-gold">Log in</span>
@@ -77,7 +77,7 @@ export default function GetStartedPage() {
       <div className="container-max section-padding py-14 max-w-5xl">
         {/* Heading */}
         <div className="text-center mb-12">
-          <p className="text-xs font-bold text-brand-gold uppercase tracking-[0.2em] mb-3">Welcome to ZoomOff</p>
+          <p className="text-xs font-bold text-brand-gold uppercase tracking-[0.2em] mb-3">Welcome to ZoomOff Errands</p>
           <h1 className="font-display text-3xl font-extrabold text-brand-charcoal tracking-tight md:text-4xl">
             How would you like to join?
           </h1>

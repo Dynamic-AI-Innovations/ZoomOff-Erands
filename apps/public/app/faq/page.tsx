@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { FAQContent } from "./FAQContent";
 
 export const metadata: Metadata = {
   title: "FAQ — Frequently Asked Questions",
-  description: "Get answers to common questions about ZoomOff errands, payments, runner verification and safety.",
+  description: "Get answers to common questions about ZoomOff Errands errands, payments, runner verification and safety.",
 };
 
 export default function FAQPage() {

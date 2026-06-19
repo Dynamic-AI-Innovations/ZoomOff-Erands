@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Suspense } from "react";
 import { JoinContent } from "./JoinContent";
 
 export const metadata: Metadata = {
-  title: "You're Invited | ZoomOff",
-  description: "You've been invited to join ZoomOff — Nigeria's fastest errand service. Sign up and get rewarded.",
+  title: "You're Invited | ZoomOff Errands",
+  description: "You've been invited to join ZoomOff Errands — Nigeria's fastest errand service. Sign up and get rewarded.",
 };
 
 export default function JoinPage() {

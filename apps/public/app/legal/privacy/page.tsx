@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Privacy Policy" };
 
@@ -10,7 +10,7 @@ export default function PrivacyPolicyPage() {
         <p className="text-zo-muted text-sm mb-8">Last updated: January 2026 | Effective date: January 2026</p>
 
         <p className="text-zo-muted mb-8">
-          ZoomOff Technologies Ltd (&ldquo;ZoomOff&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) is committed to protecting your personal data
+          ZoomOff Errands Technologies Ltd (&ldquo;ZoomOff Errands&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) is committed to protecting your personal data
           in accordance with the Nigeria Data Protection Regulation (NDPR) 2019 and its 2023 Amendment.
           This policy explains how we collect, use, store and share your information.
         </p>
@@ -22,7 +22,7 @@ export default function PrivacyPolicyPage() {
           },
           {
             title: "2. How We Use Your Data",
-            content: "To provide and improve the ZoomOff service, match customers with runners, process payments via escrow, verify runner identity (KYC), send transactional notifications (OTP, receipts, status updates), resolve disputes, comply with legal obligations (tax, anti-fraud), and with your consent — send promotional communications.",
+            content: "To provide and improve the ZoomOff Errands service, match customers with runners, process payments via escrow, verify runner identity (KYC), send transactional notifications (OTP, receipts, status updates), resolve disputes, comply with legal obligations (tax, anti-fraud), and with your consent — send promotional communications.",
           },
           {
             title: "3. Data Sharing",
@@ -42,7 +42,7 @@ export default function PrivacyPolicyPage() {
           },
           {
             title: "7. Contact",
-            content: "Data Protection Officer: privacy@zoomoff.africa | ZoomOff Technologies Ltd, Lagos, Nigeria. For complaints you may also contact the Nigeria Data Protection Commission (NDPC).",
+            content: "Data Protection Officer: privacy@zoomoff.africa | ZoomOff Errands Technologies Ltd, Lagos, Nigeria. For complaints you may also contact the Nigeria Data Protection Commission (NDPC).",
           },
         ].map(({ title, content }) => (
           <div key={title} className="mb-6">

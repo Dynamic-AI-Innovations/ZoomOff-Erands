@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -22,7 +22,7 @@ const REWARD_MAP = {
   runner: {
     badge: "Earn as a Runner",
     headline: "Start earning today",
-    detail: "Join as a ZoomOff runner. Your referrer earns ₦2,000 when you complete your first 10 tasks — and you keep all your earnings.",
+    detail: "Join as a ZoomOff Errands runner. Your referrer earns ₦2,000 when you complete your first 10 tasks — and you keep all your earnings.",
     cta: "Apply as a Runner",
     ctaHref: "/runner-apply",
     alt: "See runner earnings",
@@ -73,7 +73,7 @@ export function JoinContent() {
       <div className="border-b border-white/10">
         <div className="container-max section-padding flex h-16 items-center justify-between">
           <Link href="/">
-            <Image src="/logo.png" alt="ZoomOff" width={100} height={40} className="h-10 w-auto object-contain" priority />
+            <Image src="/logo.png" alt="ZoomOff Errands" width={100} height={40} className="h-10 w-auto object-contain" priority />
           </Link>
           <Link href="/login" className="text-sm text-gray-400 hover:text-white transition-colors">
             Already a member? <span className="text-brand-gold font-semibold">Log in</span>
@@ -128,7 +128,7 @@ export function JoinContent() {
 
           {/* Trust points */}
           <div className="border-t border-white/10 pt-6">
-            <p className="text-xs font-semibold text-gray-500 text-center uppercase tracking-widest mb-4">Why ZoomOff</p>
+            <p className="text-xs font-semibold text-gray-500 text-center uppercase tracking-widest mb-4">Why ZoomOff Errands</p>
             <div className="flex flex-col gap-3">
               {TRUST_POINTS.map(({ icon: Icon, label }) => (
                 <div key={label} className="flex items-center gap-3 text-sm text-gray-400">

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, UserCheck, MapPin, CreditCard, Star } from "lucide-react";
 import { Button } from "@zoomoff/ui";
@@ -62,7 +62,7 @@ export default function HowItWorksPage() {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="font-display text-4xl font-bold text-brand-charcoal md:text-5xl">
-            How ZoomOff Works
+            How ZoomOff Errands Works
           </h1>
           <p className="mt-4 text-lg text-zo-muted max-w-xl mx-auto">
             Posting an errand takes under 3 minutes. Here&apos;s everything that happens.

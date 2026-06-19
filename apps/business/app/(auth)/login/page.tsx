@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +11,7 @@ export default function BusinessLoginPage() {
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
           <Link href="https://zoomoff.africa" className="inline-flex flex-col items-center gap-1 mb-6">
-            <Image src="/logo.png" alt="ZoomOff" width={160} height={64} className="h-16 w-auto object-contain" unoptimized />
+            <Image src="/logo.png" alt="ZoomOff Errands" width={160} height={64} className="h-16 w-auto object-contain" unoptimized />
             <span className="text-xs font-semibold tracking-widest uppercase text-zo-muted">Business Portal</span>
           </Link>
           <h1 className="font-display text-2xl font-bold text-brand-charcoal">Business Portal</h1>
@@ -22,7 +22,7 @@ export default function BusinessLoginPage() {
             <BusinessLoginForm />
           </Suspense>
           <p className="mt-6 text-center text-sm text-zo-muted">
-            New to ZoomOff Business?{" "}
+            New to ZoomOff Errands Business?{" "}
             <Link href="/register" className="font-semibold text-brand-charcoal hover:text-brand-gold">Register your organisation</Link>
           </p>
         </div>

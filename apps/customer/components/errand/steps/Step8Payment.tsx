@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import { CreditCard, Wallet, Building2, CheckCircle2, Loader2 } from "lucide-react";
@@ -99,7 +99,7 @@ export function Step8Payment() {
     {
       id: "wallet",
       icon: Wallet,
-      label: "ZoomOff Wallet",
+      label: "ZoomOff Errands Wallet",
       sub: `Balance: ${formatNaira(walletBalance)}${walletShort ? " (insufficient)" : ""}`,
       disabled: walletShort,
     },

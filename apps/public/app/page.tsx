@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -12,9 +12,9 @@ import { HeroSlider } from "@/components/hero/HeroSlider";
 import { AppExperienceTabs } from "@/components/sections/AppExperienceTabs";
 
 export const metadata: Metadata = {
-  title: "ZoomOff — Fast, Trusted Errands Across Nigeria",
+  title: "ZoomOff Errands — Fast, Trusted Errands Across Nigeria",
   description:
-    "ZoomOff connects you with verified, GPS-tracked runners ready to handle your errands — grocery runs, deliveries, banking, and more.",
+    "ZoomOff Errands connects you with verified, GPS-tracked runners ready to handle your errands — grocery runs, deliveries, banking, and more.",
 };
 
 const IMGS = {
@@ -70,7 +70,7 @@ const TESTIMONIALS = [
     img: IMGS.customerF,
     rating: 5,
     quote:
-      "ZoomOff saved my business. I used to waste 3 hours queuing at the bank every week. Now my runner handles it in an hour while I focus on work. Absolutely brilliant.",
+      "ZoomOff Errands saved my business. I used to waste 3 hours queuing at the bank every week. Now my runner handles it in an hour while I focus on work. Absolutely brilliant.",
   },
   {
     name: "Emeka Nwosu",
@@ -290,7 +290,7 @@ export default function HomePage() {
               <div className="border-t border-white/10 px-6 py-4">
                 <div className="flex items-center justify-between">
                   <p className="text-xs text-gray-500">Protected by</p>
-                  <span className="font-display text-sm font-bold text-brand-gold">ZoomOff Guarantee</span>
+                  <span className="font-display text-sm font-bold text-brand-gold">ZoomOff Errands Guarantee</span>
                 </div>
               </div>
             </div>
@@ -361,7 +361,7 @@ export default function HomePage() {
           <div className="text-center mb-16">
             <p className="text-xs font-bold text-brand-gold uppercase tracking-[0.2em] mb-4">Loved by customers</p>
             <h2 className="font-display text-3xl font-extrabold text-brand-charcoal md:text-4xl tracking-tight">
-              Thousands of Nigerians trust ZoomOff every week
+              Thousands of Nigerians trust ZoomOff Errands every week
             </h2>
           </div>
 
@@ -421,7 +421,7 @@ export default function HomePage() {
             <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl">
               <Image
                 src={IMGS.rider}
-                alt="ZoomOff runner on a motorcycle"
+                alt="ZoomOff Errands runner on a motorcycle"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"

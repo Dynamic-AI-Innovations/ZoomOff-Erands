@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -68,7 +68,7 @@ export default function ApiKeysPage() {
         <Card className="text-center py-12">
           <Key className="h-10 w-10 text-zo-border mx-auto mb-3" aria-hidden="true" />
           <p className="font-semibold text-brand-charcoal">No API keys yet</p>
-          <p className="text-xs text-zo-muted mt-1">Create a key to integrate ZoomOff task creation into your systems</p>
+          <p className="text-xs text-zo-muted mt-1">Create a key to integrate ZoomOff Errands task creation into your systems</p>
         </Card>
       )}
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import { ChevronDown } from "lucide-react";
@@ -14,19 +14,19 @@ const FAQ_DATA = {
   ],
   Runners: [
     { q: "How do I get approved?", a: "Submit your NIN, BVN, government ID, biometric selfie, and bank account. KYC is reviewed within 24 hours. You'll then complete 4 Runner Academy modules before your account is activated." },
-    { q: "When do I get paid?", a: "Earnings clear to your ZoomOff balance immediately after the customer confirms completion. Standard runners can withdraw the next business day; Elite runners get same-day settlement." },
+    { q: "When do I get paid?", a: "Earnings clear to your ZoomOff Errands balance immediately after the customer confirms completion. Standard runners can withdraw the next business day; Elite runners get same-day settlement." },
     { q: "What is the Elite tier?", a: "Elite runners have 4.7+ ratings, 95%+ completion rate, and 200+ tasks. Perks include same-day withdrawals, 15% earnings bonus, priority task matching and a special badge on your profile." },
     { q: "Are there bonuses?", a: "Yes — surge multipliers during peak demand, streak bonuses for high daily task counts, and tier upgrade incentives. Your bonus dashboard shows real-time progress." },
   ],
   Payments: [
-    { q: "What payment methods are accepted?", a: "Debit/credit cards (Visa, Mastercard, Verve), ZoomOff Wallet balance, bank transfer, and USSD. Cards are processed securely via Paystack or Flutterwave — we never store card details." },
-    { q: "How do I get a refund?", a: "File a dispute within 48 hours of task completion. Approved refunds are credited to your ZoomOff wallet within 24 hours of resolution." },
-    { q: "Is my payment data secure?", a: "Absolutely. ZoomOff never stores card numbers, CVVs, or PIN data. All card processing is handled by Paystack and Flutterwave, both PCI DSS certified." },
+    { q: "What payment methods are accepted?", a: "Debit/credit cards (Visa, Mastercard, Verve), ZoomOff Errands Wallet balance, bank transfer, and USSD. Cards are processed securely via Paystack or Flutterwave — we never store card details." },
+    { q: "How do I get a refund?", a: "File a dispute within 48 hours of task completion. Approved refunds are credited to your ZoomOff Errands wallet within 24 hours of resolution." },
+    { q: "Is my payment data secure?", a: "Absolutely. ZoomOff Errands never stores card numbers, CVVs, or PIN data. All card processing is handled by Paystack and Flutterwave, both PCI DSS certified." },
   ],
   Safety: [
     { q: "How are runners verified?", a: "Every runner passes NIN verification, BVN verification, ID document check (OCR), biometric selfie with liveness detection, bank account verification, and a 4-module training academy." },
-    { q: "What if I feel unsafe during a task?", a: "Tap the SOS button in the tracking screen. ZoomOff's Safety Team is immediately notified and will attempt to call you. Keep the app open and move to a safe location." },
-    { q: "Is there insurance?", a: "All active ZoomOff tasks are covered under our runner protection policy for damage to items in transit. Detailed terms available in our Terms of Service." },
+    { q: "What if I feel unsafe during a task?", a: "Tap the SOS button in the tracking screen. ZoomOff Errands's Safety Team is immediately notified and will attempt to call you. Keep the app open and move to a safe location." },
+    { q: "Is there insurance?", a: "All active ZoomOff Errands tasks are covered under our runner protection policy for damage to items in transit. Detailed terms available in our Terms of Service." },
   ],
 };
 

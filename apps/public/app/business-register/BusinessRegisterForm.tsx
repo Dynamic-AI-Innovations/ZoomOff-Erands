@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import Image from "next/image";
@@ -91,7 +91,7 @@ export function BusinessRegisterForm() {
               <Link href="/login">Go to Log In</Link>
             </Button>
             <Link href="/business" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">
-              Back to ZoomOff for Business
+              Back to ZoomOff Errands for Business
             </Link>
           </div>
           <p className="text-center text-2xs text-gray-700 mt-8 tracking-wide">
@@ -108,7 +108,7 @@ export function BusinessRegisterForm() {
       <div className="border-b border-white/10">
         <div className="container-max section-padding flex h-16 items-center justify-between">
           <Link href="/">
-            <Image src="/logo.png" alt="ZoomOff" width={100} height={40} className="h-10 w-auto object-contain" priority />
+            <Image src="/logo.png" alt="ZoomOff Errands" width={100} height={40} className="h-10 w-auto object-contain" priority />
           </Link>
           <Link href="/login" className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
             Already have an account? <span className="text-brand-gold">Log in</span>
@@ -122,7 +122,7 @@ export function BusinessRegisterForm() {
           <div className="pt-4">
             <Link href="/business" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-300 mb-8 transition-colors">
               <ArrowLeft className="h-4 w-4" />
-              Back to ZoomOff for Business
+              Back to ZoomOff Errands for Business
             </Link>
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-gold/15 text-brand-gold mb-6">
               <Building2 className="h-7 w-7" aria-hidden="true" />
@@ -144,7 +144,7 @@ export function BusinessRegisterForm() {
             <div className="mt-10 rounded-2xl border border-white/10 bg-white/5 p-5">
               <p className="text-xs font-bold text-brand-gold uppercase tracking-widest mb-2">Already trusted by</p>
               <p className="text-sm text-gray-300 leading-relaxed">
-                Logistics firms, retail chains, law firms, and fintech companies across Nigeria use ZoomOff Business to eliminate errand overhead.
+                Logistics firms, retail chains, law firms, and fintech companies across Nigeria use ZoomOff Errands Business to eliminate errand overhead.
               </p>
             </div>
           </div>

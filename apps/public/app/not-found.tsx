@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Button } from "@zoomoff/ui";
 
 export default function NotFound() {
@@ -8,7 +8,7 @@ export default function NotFound() {
       <h1 className="font-display text-2xl font-bold text-brand-charcoal mt-4">Page not found</h1>
       <p className="text-zo-muted mt-2 max-w-md">The page you&apos;re looking for doesn&apos;t exist or has been moved.</p>
       <Button variant="primary" size="lg" className="mt-6" asChild>
-        <Link href="/">Back to ZoomOff</Link>
+        <Link href="/">Back to ZoomOff Errands</Link>
       </Button>
     </div>
   );

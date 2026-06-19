@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { LoginForm } from "./LoginForm";
 
-export const metadata: Metadata = { title: "Log In | ZoomOff" };
+export const metadata: Metadata = { title: "Log In | ZoomOff Errands" };
 
 export default function LoginPage() {
   return (

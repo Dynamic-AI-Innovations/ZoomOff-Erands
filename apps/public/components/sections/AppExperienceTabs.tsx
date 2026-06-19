@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import Image from "next/image";
@@ -41,7 +41,7 @@ export function AppExperienceTabs() {
             Everything you need, in one tap
           </h2>
           <p className="mt-3 text-zo-muted max-w-lg mx-auto">
-            Whether you&apos;re delegating errands or earning by completing them, ZoomOff has you covered.
+            Whether you&apos;re delegating errands or earning by completing them, ZoomOff Errands has you covered.
           </p>
         </div>
 
@@ -81,7 +81,7 @@ export function AppExperienceTabs() {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[3/4] max-w-sm mx-auto">
               <Image
                 src={isCustomer ? CUSTOMER_IMG : RUNNER_IMG}
-                alt={isCustomer ? "Person using ZoomOff on their phone" : "ZoomOff runner on a motorcycle"}
+                alt={isCustomer ? "Person using ZoomOff Errands on their phone" : "ZoomOff Errands runner on a motorcycle"}
                 fill
                 className="object-cover object-top transition-opacity duration-500"
                 sizes="(max-width: 1024px) 80vw, 40vw"

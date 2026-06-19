@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { ForgotPasswordForm } from "./ForgotPasswordForm";
 
-export const metadata: Metadata = { title: "Reset Password | ZoomOff" };
+export const metadata: Metadata = { title: "Reset Password | ZoomOff Errands" };
 
 export default function ForgotPasswordPage() {
   return (

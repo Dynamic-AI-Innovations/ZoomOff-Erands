@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import Image from "next/image";
@@ -58,9 +58,9 @@ export function LoginForm() {
       </Link>
 
       <div className="mb-8">
-        <Image src="/logo.png" alt="ZoomOff Errand Services" width={160} height={64} className="h-16 w-auto object-contain mb-4" priority />
+        <Image src="/logo.png" alt="ZoomOff Errands Errand Services" width={160} height={64} className="h-16 w-auto object-contain mb-4" priority />
         <h1 className="font-display text-2xl font-bold text-brand-charcoal">Welcome back</h1>
-        <p className="text-sm text-zo-muted mt-1">Log in to your ZoomOff account</p>
+        <p className="text-sm text-zo-muted mt-1">Log in to your ZoomOff Errands account</p>
       </div>
 
       {errors.global && (
