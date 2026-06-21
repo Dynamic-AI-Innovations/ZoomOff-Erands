@@ -20,7 +20,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = React.useState(false);
 
   React.useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 10);
+    const handler = () => setScrolled(window.scrollY > 4);
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
@@ -28,8 +28,8 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 w-full transition-all duration-300",
-        scrolled ? "bg-white/95 backdrop-blur shadow-card" : "bg-transparent"
+        "sticky top-0 z-40 w-full bg-white transition-shadow duration-300",
+        scrolled ? "shadow-card" : "border-b border-zo-border"
       )}
     >
       <div className="container-max section-padding flex h-16 items-center justify-between">
@@ -51,10 +51,7 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className={cn(
-                "text-sm font-medium transition-colors",
-                scrolled ? "text-zo-muted hover:text-brand-charcoal" : "text-white/80 hover:text-white"
-              )}
+              className="text-sm font-medium text-zo-muted hover:text-brand-charcoal transition-colors"
             >
               {link.label}
             </Link>
@@ -63,7 +60,7 @@ export function Navbar() {
 
         {/* Desktop CTAs */}
         <div className="hidden items-center gap-3 md:flex">
-          <Button variant="ghost" size="sm" className={scrolled ? "" : "text-white hover:bg-white/10"} asChild>
+          <Button variant="ghost" size="sm" asChild>
             <Link href="/login">Log in</Link>
           </Button>
           <Button variant="primary" size="sm" asChild>
@@ -73,10 +70,7 @@ export function Navbar() {
 
         {/* Mobile menu toggle */}
         <button
-          className={cn(
-            "flex items-center justify-center rounded-lg p-2 md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold",
-            scrolled ? "text-brand-charcoal hover:bg-zo-bg-light" : "text-white hover:bg-white/10"
-          )}
+          className="flex items-center justify-center rounded-lg p-2 text-brand-charcoal hover:bg-zo-bg-light md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
