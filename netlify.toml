@@ -3,8 +3,10 @@
   publish = "apps/public/.next"
 
 [build.environment]
-  NODE_VERSION  = "20"
-  PNPM_VERSION  = "9"
+  NODE_VERSION                  = "20"
+  PNPM_VERSION                  = "9"
+  NEXT_PUBLIC_SUPABASE_URL      = "https://vbxvrtwbyxvnlxvjdlwe.supabase.co"
+  NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZieHZydHdieXh2bmx4dmpkbHdlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0NTg5NjcsImV4cCI6MjA5NzAzNDk2N30.AEazmRS3d1OCjNaNDNDyqx1jBqsX67TmNyoDjVyi72Q"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
