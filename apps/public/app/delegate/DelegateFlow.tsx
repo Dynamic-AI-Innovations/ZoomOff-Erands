@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import * as React from "react";
 import Image from "next/image";
@@ -7,10 +7,11 @@ import {
   ArrowRight, ArrowLeft, ShoppingCart, FileText, Pill,
   CreditCard, Building2, Users, Package, ClipboardList,
   Home, PenLine, MapPin, Clock, StickyNote, CheckCircle,
-  Mail, Lock, User, Phone,
+  Mail, Lock, User, Phone, Loader2, AlertCircle,
 } from "lucide-react";
 import { Button } from "@zoomoff/ui";
 import { cn } from "@zoomoff/ui";
+import { supabase } from "@zoomoff/api-client";
 
 const CATEGORIES = [
   { icon: ShoppingCart, label: "Grocery Shopping" },
@@ -111,7 +112,11 @@ function Step1({ draft, setDraft, onNext }: {
     saveDraft(next);
   };
 
-  const valid = draft.category && draft.description.trim().length > 10 && draft.pickup.trim().length > 3;
+  const valid =
+    draft.category &&
+    draft.description.trim().length > 10 &&
+    draft.pickup.trim().length > 3 &&
+    draft.dropoff.trim().length > 3;
 
   return (
     <div className="space-y-6">
@@ -156,7 +161,7 @@ function Step1({ draft, setDraft, onNext }: {
       {/* Pickup */}
       <div>
         <label className="block text-sm font-semibold text-brand-charcoal mb-1.5" htmlFor="pickup">
-          Pickup / starting location
+          Pickup / starting location <span className="text-red-500">*</span>
         </label>
         <div className="relative">
           <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zo-muted" aria-hidden="true" />
@@ -174,7 +179,7 @@ function Step1({ draft, setDraft, onNext }: {
       {/* Drop-off */}
       <div>
         <label className="block text-sm font-semibold text-brand-charcoal mb-1.5" htmlFor="dropoff">
-          Delivery / drop-off location <span className="text-zo-muted font-normal">(optional)</span>
+          Delivery / drop-off location <span className="text-red-500">*</span>
         </label>
         <div className="relative">
           <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zo-muted" aria-hidden="true" />
@@ -251,11 +256,31 @@ function Step1({ draft, setDraft, onNext }: {
 
       {!valid && (
         <p className="text-center text-xs text-zo-muted">
-          Please select a category, describe your errand, and add a pickup location to continue.
+          Please select a category, describe your errand, and add both pickup and drop-off locations to continue.
         </p>
       )}
     </div>
   );
+}
+
+// ─── Shared task creation helper ──────────────────────────────────
+async function createTask(userId: string, draft: Draft): Promise<string | null> {
+  const { data } = await supabase
+    .from("tasks")
+    .insert({
+      user_id: userId,
+      category: draft.category,
+      description: draft.description,
+      pickup_address: draft.pickup,
+      destination_address: draft.dropoff || null,
+      notes: draft.notes || null,
+      schedule_type: draft.when,
+      scheduled_at: draft.when === "scheduled" ? draft.scheduledAt || null : null,
+      status: "posted",
+    })
+    .select("id")
+    .single();
+  return data?.id ?? null;
 }
 
 // ─── Step 2: Auth Gate ────────────────────────────────────────────
@@ -264,13 +289,24 @@ const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 function Step2({ draft, onBack, onDone }: {
   draft: Draft;
   onBack: () => void;
-  onDone: () => void;
+  onDone: (taskId: string | null) => void;
 }) {
   const [tab, setTab] = React.useState<"login" | "register">("register");
   const [reg, setReg] = React.useState({ name: "", phone: "", email: "", password: "" });
   const [log, setLog] = React.useState({ email: "", password: "" });
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [loading, setLoading] = React.useState(false);
+  const [loggedInEmail, setLoggedInEmail] = React.useState<string | null>(null);
+  const [loggedInUserId, setLoggedInUserId] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        setLoggedInEmail(session.user.email ?? null);
+        setLoggedInUserId(session.user.id);
+      }
+    });
+  }, []);
 
   const setRegField = (k: keyof typeof reg) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setReg(p => ({ ...p, [k]: e.target.value }));
@@ -280,6 +316,14 @@ function Step2({ draft, onBack, onDone }: {
     setLog(p => ({ ...p, [k]: e.target.value }));
     if (errors[k]) setErrors(p => { const n = { ...p }; delete n[k]; return n; });
   };
+
+  async function handleDirectSubmit() {
+    if (!loggedInUserId) return;
+    setLoading(true);
+    const taskId = await createTask(loggedInUserId, draft);
+    setLoading(false);
+    onDone(taskId);
+  }
 
   async function handleSubmit() {
     const e: Record<string, string> = {};
@@ -295,15 +339,113 @@ function Step2({ draft, onBack, onDone }: {
     if (Object.keys(e).length) { setErrors(e); return; }
     setErrors({});
     setLoading(true);
-    await new Promise(r => setTimeout(r, 1200));
+
+    let userId: string | null = null;
+    let hasSession = false;
+
+    if (tab === "register") {
+      const { data, error } = await supabase.auth.signUp({
+        email: reg.email,
+        password: reg.password,
+        options: {
+          emailRedirectTo: "https://zoomofferrand.netlify.app/dashboard",
+          data: { name: reg.name, phone: reg.phone, role: "customer" },
+        },
+      });
+      if (error) {
+        setErrors({ global: error.message.toLowerCase().includes("already registered")
+          ? "This email already has an account. Try logging in instead."
+          : error.message });
+        setLoading(false);
+        return;
+      }
+      userId = data.user?.id ?? null;
+      hasSession = !!data.session;
+    } else {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: log.email,
+        password: log.password,
+      });
+      if (error) {
+        setErrors({ global: error.message.includes("Invalid login")
+          ? "Incorrect email or password. Please try again."
+          : error.message.includes("Email not confirmed")
+            ? "Please confirm your email first — check your inbox."
+            : error.message });
+        setLoading(false);
+        return;
+      }
+      userId = data.user?.id ?? null;
+      hasSession = !!data.session;
+    }
+
+    let taskId: string | null = null;
+    if (userId && hasSession) {
+      taskId = await createTask(userId, draft);
+    }
+
     setLoading(false);
-    onDone();
+    onDone(taskId);
   }
 
   const inputCls = (key: string) => cn(
     "h-11 w-full rounded-xl border bg-zo-bg-light pl-10 pr-4 text-sm text-brand-charcoal placeholder:text-zo-muted focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition",
     errors[key] ? "border-red-400" : "border-zo-border"
   );
+
+  // Already logged in — skip auth, just submit the errand
+  if (loggedInEmail && loggedInUserId) {
+    return (
+      <div className="space-y-5">
+        <div className="rounded-2xl border border-brand-gold/30 bg-brand-gold/5 p-4">
+          <p className="text-xs font-bold text-brand-gold uppercase tracking-widest mb-2">Your errand is saved</p>
+          <div className="flex items-start gap-2 text-sm text-brand-charcoal">
+            <CheckCircle className="h-4 w-4 text-brand-gold shrink-0 mt-0.5" aria-hidden="true" />
+            <div>
+              <span className="font-semibold">{draft.category || "Custom errand"}</span>
+              {draft.pickup && <span className="text-zo-muted"> · from {draft.pickup}</span>}
+              {draft.dropoff && <span className="text-zo-muted"> → {draft.dropoff}</span>}
+            </div>
+          </div>
+          <p className="mt-1 ml-6 text-xs text-zo-muted line-clamp-2">{draft.description}</p>
+        </div>
+
+        <div className="rounded-xl border border-zo-border bg-zo-bg-light p-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-gold/15">
+              <User className="h-4 w-4 text-brand-gold" aria-hidden="true" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-brand-charcoal">Logged in</p>
+              <p className="text-xs text-zo-muted">{loggedInEmail}</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => { setLoggedInEmail(null); setLoggedInUserId(null); }}
+            className="text-xs text-zo-muted hover:text-brand-charcoal transition-colors"
+          >
+            Switch account
+          </button>
+        </div>
+
+        <Button variant="primary" size="lg" className="w-full" onClick={handleDirectSubmit} disabled={loading}>
+          {loading
+            ? <><Loader2 className="h-4 w-4 animate-spin mr-2" />Submitting errand…</>
+            : <>Submit Errand <ArrowRight className="h-4 w-4 ml-1.5" /></>}
+        </Button>
+
+        <button
+          type="button"
+          onClick={onBack}
+          className="flex items-center gap-1.5 text-sm text-zo-muted hover:text-brand-charcoal transition-colors"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to errand details
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-5">
@@ -324,6 +466,14 @@ function Step2({ draft, onBack, onDone }: {
       <p className="text-sm text-zo-muted text-center">
         Create a free account or log in to submit your errand. Your details are saved.
       </p>
+
+      {/* Global error */}
+      {errors.global && (
+        <div className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" aria-hidden="true" />
+          <span>{errors.global}</span>
+        </div>
+      )}
 
       {/* Tab toggle */}
       <div className="flex rounded-xl border border-zo-border bg-zo-bg-light p-1">
@@ -373,7 +523,9 @@ function Step2({ draft, onBack, onDone }: {
             {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password}</p>}
           </div>
           <Button variant="primary" size="lg" className="w-full" onClick={handleSubmit} disabled={loading}>
-            {loading ? "Creating account…" : <> Create Account & Submit Errand <ArrowRight className="h-4 w-4 ml-1.5" /></>}
+            {loading
+              ? <><Loader2 className="h-4 w-4 animate-spin mr-2" />Creating account…</>
+              : <> Create Account & Submit Errand <ArrowRight className="h-4 w-4 ml-1.5" /></>}
           </Button>
           <p className="text-xs text-zo-muted text-center leading-relaxed">
             By continuing you agree to our{" "}
@@ -402,7 +554,9 @@ function Step2({ draft, onBack, onDone }: {
             <Link href="/forgot-password" className="text-xs text-brand-gold hover:underline">Forgot password?</Link>
           </div>
           <Button variant="primary" size="lg" className="w-full" onClick={handleSubmit} disabled={loading}>
-            {loading ? "Logging in…" : <> Log In & Submit Errand <ArrowRight className="h-4 w-4 ml-1.5" /></>}
+            {loading
+              ? <><Loader2 className="h-4 w-4 animate-spin mr-2" />Logging in…</>
+              : <> Log In & Submit Errand <ArrowRight className="h-4 w-4 ml-1.5" /></>}
           </Button>
         </div>
       )}
@@ -420,7 +574,7 @@ function Step2({ draft, onBack, onDone }: {
 }
 
 // ─── Step 3: Confirmation ─────────────────────────────────────────
-function Step3({ draft }: { draft: Draft }) {
+function Step3({ draft, taskId }: { draft: Draft; taskId: string | null }) {
   React.useEffect(() => {
     try { localStorage.removeItem(DRAFT_KEY); } catch {}
   }, []);
@@ -432,10 +586,12 @@ function Step3({ draft }: { draft: Draft }) {
       </div>
       <div>
         <h2 className="font-display text-2xl font-extrabold text-brand-charcoal tracking-tight">
-          Errand submitted!
+          {taskId ? "Errand submitted!" : "Account created!"}
         </h2>
         <p className="mt-2 text-zo-muted text-sm">
-          We&apos;re matching you with a verified runner near you. You&apos;ll get a notification within 5 minutes.
+          {taskId
+            ? "We're matching you with a verified runner near you. You'll receive an update once a runner is assigned."
+            : "Check your email to verify your account. Your errand details are saved — log in to submit your errand."}
         </p>
       </div>
 
@@ -469,12 +625,25 @@ function Step3({ draft }: { draft: Draft }) {
       </div>
 
       <div className="flex flex-col gap-3">
-        <Button variant="primary" size="lg" className="w-full" asChild>
-          <Link href="/delegate">Request Another Errand</Link>
-        </Button>
-        <Button variant="outline" size="md" className="w-full" asChild>
-          <Link href="/">Back to Home</Link>
-        </Button>
+        {taskId ? (
+          <>
+            <Button variant="primary" size="lg" className="w-full" asChild>
+              <Link href={`/track/${taskId}`}>Track Your Errand →</Link>
+            </Button>
+            <Button variant="outline" size="md" className="w-full" asChild>
+              <Link href="/dashboard">Go to Dashboard</Link>
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button variant="primary" size="lg" className="w-full" asChild>
+              <Link href="/login">Log In to Submit Errand</Link>
+            </Button>
+            <Button variant="outline" size="md" className="w-full" asChild>
+              <Link href="/">Back to Home</Link>
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );
@@ -484,6 +653,7 @@ function Step3({ draft }: { draft: Draft }) {
 export function DelegateFlow() {
   const [step, setStep] = React.useState<1 | 2 | 3>(1);
   const [draft, setDraft] = React.useState<Draft>(EMPTY);
+  const [taskId, setTaskId] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     setDraft(loadDraft());
@@ -539,10 +709,10 @@ export function DelegateFlow() {
             <Step2
               draft={draft}
               onBack={() => setStep(1)}
-              onDone={() => setStep(3)}
+              onDone={(id) => { setTaskId(id); setStep(3); }}
             />
           )}
-          {step === 3 && <Step3 draft={draft} />}
+          {step === 3 && <Step3 draft={draft} taskId={taskId} />}
         </div>
 
         <p className="text-center text-2xs text-zo-muted/60 mt-8 tracking-wide">
