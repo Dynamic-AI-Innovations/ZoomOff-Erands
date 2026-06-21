@@ -42,11 +42,12 @@ export function RunnerApplyForm() {
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setLoading(true);
 
-    // Create Supabase account — this automatically sends a confirmation email
+    // Create Supabase account — confirmation email links back to /dashboard
     const { data, error: signUpError } = await supabase.auth.signUp({
       email: fields.email,
       password: fields.password,
       options: {
+        emailRedirectTo: "https://zoomofferrand.netlify.app/dashboard",
         data: {
           name: fields.name,
           phone: fields.phone,

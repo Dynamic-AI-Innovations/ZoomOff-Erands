@@ -3,18 +3,20 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Mail, Lock, CheckCircle, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, Mail, Lock, Loader2 } from "lucide-react";
 import { Button } from "@zoomoff/ui";
 import { cn } from "@zoomoff/ui";
+import { supabase } from "@zoomoff/api-client";
 
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
 export function LoginForm() {
+  const router = useRouter();
   const [email, setEmail]       = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errors, setErrors]     = React.useState<{ email?: string; password?: string; global?: string }>({});
   const [loading, setLoading]   = React.useState(false);
-  const [submitted, setSubmitted] = React.useState(false);
 
   function validate() {
     const e: typeof errors = {};
@@ -28,27 +30,22 @@ export function LoginForm() {
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setErrors({});
     setLoading(true);
-    await new Promise(r => setTimeout(r, 1400));
-    setLoading(false);
-    setSubmitted(true);
-  }
 
-  if (submitted) {
-    return (
-      <div className="w-full max-w-sm text-center">
-        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-brand-gold/15 mx-auto mb-6">
-          <CheckCircle className="h-10 w-10 text-brand-gold" aria-hidden="true" />
-        </div>
-        <h1 className="font-display text-2xl font-bold text-brand-charcoal">Welcome back!</h1>
-        <p className="text-sm text-zo-muted mt-2">You&apos;re logged in. Taking you to your dashboard…</p>
-        <Button variant="primary" size="lg" className="mt-8 w-full" asChild>
-          <Link href="/">Go to Dashboard</Link>
-        </Button>
-        <p className="text-center text-2xs text-zo-muted/60 mt-8 tracking-wide">
-          Powered by <span className="text-brand-gold/80">Dynamics Technology</span>
-        </p>
-      </div>
-    );
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      setErrors({
+        global: error.message.includes("Invalid login")
+          ? "Incorrect email or password. Please try again."
+          : error.message.includes("Email not confirmed")
+            ? "Please confirm your email first — check your inbox."
+            : error.message,
+      });
+      setLoading(false);
+      return;
+    }
+
+    router.push("/dashboard");
   }
 
   return (
