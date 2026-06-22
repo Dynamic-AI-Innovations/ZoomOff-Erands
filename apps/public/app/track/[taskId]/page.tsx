@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 import {
   ArrowLeft, LogOut, MapPin, Clock, CheckCircle2,
-  Package, User, AlertTriangle, Loader2,
+  Package, User, AlertTriangle, Loader2, Star, XCircle,
 } from "lucide-react";
 import { Button } from "@zoomoff/ui";
 import { supabase } from "@zoomoff/api-client";
@@ -23,6 +23,7 @@ type Task = {
   scheduled_at: string | null;
   created_at: string;
   updated_at: string | null;
+  runner_id: string | null;
 };
 
 const STATUS_LABEL: Record<string, string> = {
@@ -46,11 +47,11 @@ const STATUS_COLOR: Record<string, string> = {
 };
 
 const TIMELINE_STEPS = [
-  { key: "posted",      label: "Errand Posted",       desc: "Looking for an available runner" },
-  { key: "assigned",    label: "Runner Assigned",      desc: "A verified runner has accepted your errand" },
-  { key: "en_route",   label: "Runner En Route",      desc: "Your runner is heading to the pickup location" },
+  { key: "posted",      label: "Errand Posted",      desc: "Looking for an available runner" },
+  { key: "assigned",    label: "Runner Assigned",     desc: "A verified runner has accepted your errand" },
+  { key: "en_route",    label: "Runner En Route",     desc: "Your runner is heading to the pickup location" },
   { key: "in_progress", label: "Errand In Progress",  desc: "Your runner is completing the errand" },
-  { key: "completed",   label: "Errand Completed",    desc: "Your errand has been completed" },
+  { key: "completed",   label: "Errand Completed",    desc: "Your errand has been completed successfully" },
 ];
 
 const STATUS_ORDER = ["posted", "assigned", "en_route", "in_progress", "completed"];
@@ -72,22 +73,36 @@ export default function TrackPage() {
   const [task, setTask] = React.useState<Task | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [notFound, setNotFound] = React.useState(false);
+  const [userId, setUserId] = React.useState("");
+
+  // Cancel
+  const [showCancelConfirm, setShowCancelConfirm] = React.useState(false);
+  const [cancelLoading, setCancelLoading] = React.useState(false);
+  const [cancelError, setCancelError] = React.useState<string | null>(null);
+
+  // Rating
+  const [hasRated, setHasRated] = React.useState(false);
+  const [ratingScore, setRatingScore] = React.useState(0);
+  const [hoverScore, setHoverScore] = React.useState(0);
+  const [ratingReview, setRatingReview] = React.useState("");
+  const [ratingSubmitting, setRatingSubmitting] = React.useState(false);
+  const [ratingDone, setRatingDone] = React.useState(false);
 
   React.useEffect(() => {
     if (!taskId) return;
 
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!session) { router.replace("/login"); return; }
+      setUserId(session.user.id);
 
-      const { data, error } = await supabase
-        .from("tasks")
-        .select("*")
-        .eq("id", taskId)
-        .eq("user_id", session.user.id)
-        .maybeSingle();
+      const [taskRes, ratingRes] = await Promise.all([
+        supabase.from("tasks").select("*").eq("id", taskId).eq("user_id", session.user.id).maybeSingle(),
+        supabase.from("ratings").select("id").eq("task_id", taskId).eq("rater_id", session.user.id).maybeSingle().catch(() => ({ data: null })),
+      ]);
 
-      if (error || !data) { setNotFound(true); setLoading(false); return; }
-      setTask(data);
+      if (taskRes.error || !taskRes.data) { setNotFound(true); setLoading(false); return; }
+      setTask(taskRes.data as Task);
+      setHasRated(!!(ratingRes as { data: unknown }).data);
       setLoading(false);
     });
   }, [taskId, router]);
@@ -105,6 +120,41 @@ export default function TrackPage() {
       .subscribe();
     return () => { void supabase.removeChannel(channel); };
   }, [taskId]);
+
+  async function handleCancel() {
+    if (!task) return;
+    setCancelLoading(true);
+    setCancelError(null);
+    const { error } = await supabase
+      .from("tasks")
+      .update({ status: "cancelled", updated_at: new Date().toISOString() })
+      .eq("id", task.id)
+      .eq("user_id", userId);
+    if (error) {
+      setCancelError("Failed to cancel. Please try again or contact support.");
+    } else {
+      setTask(prev => prev ? { ...prev, status: "cancelled" } : prev);
+      setShowCancelConfirm(false);
+    }
+    setCancelLoading(false);
+  }
+
+  async function handleRating() {
+    if (!task || ratingScore === 0 || !userId) return;
+    setRatingSubmitting(true);
+    const { error } = await supabase.from("ratings").insert({
+      task_id: task.id,
+      rater_id: userId,
+      rated_id: task.runner_id ?? null,
+      score: ratingScore,
+      review: ratingReview.trim() || null,
+    });
+    if (!error) {
+      setRatingDone(true);
+      setHasRated(true);
+    }
+    setRatingSubmitting(false);
+  }
 
   async function handleSignOut() {
     await supabase.auth.signOut();
@@ -142,8 +192,9 @@ export default function TrackPage() {
   });
 
   const isCancelled = task.status === "cancelled";
-  const isDisputed = task.status === "disputed";
+  const isDisputed  = task.status === "disputed";
   const isCompleted = task.status === "completed";
+  const isPosted    = task.status === "posted";
 
   return (
     <div className="min-h-screen bg-zo-bg-light">
@@ -246,6 +297,46 @@ export default function TrackPage() {
           </div>
         </div>
 
+        {/* Cancel errand — only when posted (no runner yet) */}
+        {isPosted && !showCancelConfirm && (
+          <button
+            type="button"
+            onClick={() => setShowCancelConfirm(true)}
+            className="flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 py-3 text-sm font-semibold text-zo-error hover:bg-red-100 transition-colors"
+          >
+            <XCircle className="h-4 w-4" /> Cancel this errand
+          </button>
+        )}
+
+        {showCancelConfirm && (
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-5">
+            <p className="font-semibold text-brand-charcoal text-sm mb-1">Cancel this errand?</p>
+            <p className="text-xs text-zo-muted mb-4 leading-relaxed">
+              This cannot be undone. The errand will be cancelled and removed from the runner queue.
+            </p>
+            {cancelError && (
+              <p className="text-xs text-zo-error mb-3">{cancelError}</p>
+            )}
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={handleCancel}
+                disabled={cancelLoading}
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-zo-error py-2.5 text-sm font-semibold text-white hover:opacity-90 transition disabled:opacity-60"
+              >
+                {cancelLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Yes, cancel it"}
+              </button>
+              <button
+                type="button"
+                onClick={() => { setShowCancelConfirm(false); setCancelError(null); }}
+                className="flex flex-1 items-center justify-center rounded-xl border border-zo-border bg-white py-2.5 text-sm font-semibold text-brand-charcoal hover:bg-zo-bg-light transition"
+              >
+                Keep errand
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Status timeline */}
         {!isCancelled && !isDisputed && (
           <div className="rounded-2xl bg-white border border-zo-border p-5">
@@ -256,7 +347,6 @@ export default function TrackPage() {
                 const isLast = idx === TIMELINE_STEPS.length - 1;
                 return (
                   <div key={step.key} className="flex gap-4">
-                    {/* Line + dot */}
                     <div className="flex flex-col items-center">
                       <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
                         state === "done" ? "bg-green-500 border-green-500" :
@@ -274,8 +364,7 @@ export default function TrackPage() {
                         <div className={`w-0.5 flex-1 my-1 min-h-[24px] ${state === "done" ? "bg-green-200" : "bg-zo-border"}`} />
                       )}
                     </div>
-                    {/* Content */}
-                    <div className={`pb-5 pt-1 ${isLast ? "" : ""}`}>
+                    <div className="pb-5 pt-1">
                       <p className={`text-sm font-semibold ${state === "pending" ? "text-zo-muted" : "text-brand-charcoal"}`}>
                         {step.label}
                       </p>
@@ -290,7 +379,7 @@ export default function TrackPage() {
           </div>
         )}
 
-        {/* Cancelled / Disputed state */}
+        {/* Cancelled / Disputed banner */}
         {(isCancelled || isDisputed) && (
           <div className={`rounded-2xl border p-5 flex items-start gap-4 ${
             isDisputed ? "border-red-200 bg-red-50" : "border-gray-200 bg-gray-50"
@@ -300,24 +389,98 @@ export default function TrackPage() {
               <p className="font-semibold text-brand-charcoal text-sm">
                 {isDisputed ? "Errand disputed" : "Errand cancelled"}
               </p>
-              <p className="text-xs text-zo-muted mt-0.5">
+              <p className="text-xs text-zo-muted mt-0.5 leading-relaxed">
                 {isDisputed
-                  ? "A dispute has been raised on this errand. Our team will review and contact you."
-                  : "This errand has been cancelled."}
+                  ? "A dispute has been raised on this errand. Our team will review and contact you within 24 hours."
+                  : "This errand has been cancelled. You can request a new errand at any time."}
               </p>
             </div>
           </div>
         )}
 
-        {/* Completed CTA */}
+        {/* Completed celebration */}
         {isCompleted && (
           <div className="rounded-2xl bg-green-50 border border-green-200 p-5 text-center">
-            <CheckCircle2 className="h-8 w-8 text-green-600 mx-auto mb-2" />
-            <p className="font-semibold text-brand-charcoal text-sm">Errand completed!</p>
-            <p className="text-xs text-zo-muted mt-1 mb-3">Thank you for using ZoomOff Errands.</p>
+            <CheckCircle2 className="h-10 w-10 text-green-600 mx-auto mb-2" />
+            <p className="font-bold text-brand-charcoal">Errand completed!</p>
+            <p className="text-xs text-zo-muted mt-1 mb-4">Thank you for using ZoomOff Errands.</p>
             <Button variant="primary" size="sm" asChild>
               <Link href="/delegate">Request another errand</Link>
             </Button>
+          </div>
+        )}
+
+        {/* Rate your runner — show after completion, once */}
+        {isCompleted && !hasRated && !ratingDone && (
+          <div className="rounded-2xl bg-white border border-zo-border p-5">
+            <p className="text-xs font-bold text-brand-charcoal uppercase tracking-widest mb-1">Rate Your Runner</p>
+            <p className="text-sm text-zo-muted mb-4">How was your experience? Your rating helps maintain high standards.</p>
+
+            <div className="flex gap-1 mb-4">
+              {[1, 2, 3, 4, 5].map(s => (
+                <button
+                  key={s}
+                  type="button"
+                  onMouseEnter={() => setHoverScore(s)}
+                  onMouseLeave={() => setHoverScore(0)}
+                  onClick={() => setRatingScore(s)}
+                  aria-label={`Rate ${s} star${s !== 1 ? "s" : ""}`}
+                  className="p-1.5 transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded"
+                >
+                  <Star
+                    className={`h-9 w-9 transition-colors ${
+                      s <= (hoverScore || ratingScore)
+                        ? "fill-brand-gold text-brand-gold"
+                        : "text-zo-border"
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+
+            {ratingScore > 0 && (
+              <>
+                <textarea
+                  value={ratingReview}
+                  onChange={e => setRatingReview(e.target.value)}
+                  placeholder="Leave a review for your runner (optional)…"
+                  rows={3}
+                  className="w-full rounded-xl border border-zo-border px-4 py-3 text-sm text-brand-charcoal placeholder:text-zo-muted focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition resize-none mb-3"
+                />
+                <Button
+                  variant="primary"
+                  size="md"
+                  className="w-full"
+                  onClick={handleRating}
+                  disabled={ratingSubmitting}
+                >
+                  {ratingSubmitting
+                    ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Submitting…</>
+                    : `Submit ${ratingScore}-Star Rating`
+                  }
+                </Button>
+              </>
+            )}
+          </div>
+        )}
+
+        {/* Rating thank-you */}
+        {(ratingDone || (isCompleted && hasRated)) && (
+          <div className="rounded-2xl bg-green-50 border border-green-200 px-5 py-4 flex items-center gap-3">
+            <CheckCircle2 className="h-5 w-5 text-green-600 shrink-0" />
+            <p className="text-sm font-medium text-brand-charcoal">Thanks for your rating!</p>
+          </div>
+        )}
+
+        {/* Dispute link */}
+        {(isCompleted || isCancelled || isDisputed) && !isDisputed && (
+          <div className="text-center">
+            <Link
+              href={`/disputes/new/${task.id}`}
+              className="text-xs text-zo-muted hover:text-zo-error transition-colors underline underline-offset-2"
+            >
+              Something went wrong? File a dispute →
+            </Link>
           </div>
         )}
 

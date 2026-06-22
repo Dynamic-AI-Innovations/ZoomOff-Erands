@@ -1,11 +1,12 @@
-﻿"use client";
+"use client";
 
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LayoutDashboard } from "lucide-react";
 import { Button } from "@zoomoff/ui";
 import { cn } from "@zoomoff/ui";
+import { supabase } from "@zoomoff/api-client";
 
 const NAV_LINKS = [
   { label: "How It Works", href: "/how-it-works" },
@@ -15,14 +16,28 @@ const NAV_LINKS = [
   { label: "Refer & Earn", href: "/referral" },
 ];
 
+type AuthState = "loading" | "authed" | "anon";
+
 export function Navbar() {
   const [open, setOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
+  const [authState, setAuthState] = React.useState<AuthState>("loading");
 
   React.useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 4);
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  React.useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setAuthState(session ? "authed" : "anon");
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setAuthState(session ? "authed" : "anon");
+    });
+    return () => subscription.unsubscribe();
   }, []);
 
   return (
@@ -59,13 +74,34 @@ export function Navbar() {
         </nav>
 
         {/* Desktop CTAs */}
-        <div className="hidden items-center gap-3 md:flex">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/login">Log in</Link>
-          </Button>
-          <Button variant="primary" size="sm" asChild>
-            <Link href="/get-started">Request an Errand</Link>
-          </Button>
+        <div className="hidden items-center gap-3 md:flex min-w-[200px] justify-end">
+          {authState === "loading" && (
+            <div className="h-8 w-32 rounded-lg bg-zo-bg-light animate-pulse" />
+          )}
+          {authState === "anon" && (
+            <>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/login">Log in</Link>
+              </Button>
+              <Button variant="primary" size="sm" asChild>
+                <Link href="/get-started">Request an Errand</Link>
+              </Button>
+            </>
+          )}
+          {authState === "authed" && (
+            <>
+              <Link
+                href="/dashboard"
+                className="flex items-center gap-1.5 text-sm font-medium text-zo-muted hover:text-brand-charcoal transition-colors"
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                Dashboard
+              </Link>
+              <Button variant="primary" size="sm" asChild>
+                <Link href="/delegate">New Errand</Link>
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile menu toggle */}
@@ -101,12 +137,25 @@ export function Navbar() {
             ))}
           </ul>
           <div className="mt-3 flex flex-col gap-2 border-t border-zo-border pt-3">
-            <Button variant="outline" size="md" className="w-full" asChild>
-              <Link href="/login">Log in</Link>
-            </Button>
-            <Button variant="primary" size="md" className="w-full" asChild>
-              <Link href="/get-started">Request an Errand</Link>
-            </Button>
+            {authState === "authed" ? (
+              <>
+                <Button variant="outline" size="md" className="w-full" asChild>
+                  <Link href="/dashboard" onClick={() => setOpen(false)}>Dashboard</Link>
+                </Button>
+                <Button variant="primary" size="md" className="w-full" asChild>
+                  <Link href="/delegate" onClick={() => setOpen(false)}>New Errand</Link>
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="outline" size="md" className="w-full" asChild>
+                  <Link href="/login" onClick={() => setOpen(false)}>Log in</Link>
+                </Button>
+                <Button variant="primary" size="md" className="w-full" asChild>
+                  <Link href="/get-started" onClick={() => setOpen(false)}>Request an Errand</Link>
+                </Button>
+              </>
+            )}
           </div>
         </nav>
       )}

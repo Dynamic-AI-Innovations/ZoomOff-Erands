@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   LogOut, PlusCircle, Clock, CheckCircle2, User,
-  ArrowRight, Package, ChevronRight, Bell,
+  ArrowRight, Package, ChevronRight, Bell, Wallet, Settings,
 } from "lucide-react";
 import { Button } from "@zoomoff/ui";
 import { supabase } from "@zoomoff/api-client";
@@ -305,16 +305,30 @@ export default function DashboardPage() {
               <span>My errand history</span>
               <ChevronRight className="h-4 w-4 text-zo-muted" />
             </Link>
+            <Link href="/wallet" className="flex items-center justify-between rounded-xl border border-zo-border px-4 py-3 text-sm text-brand-charcoal hover:border-brand-gold/50 hover:bg-zo-bg-light transition-colors">
+              <span className="flex items-center gap-2"><Wallet className="h-4 w-4 text-zo-muted" />My wallet</span>
+              <ChevronRight className="h-4 w-4 text-zo-muted" />
+            </Link>
+            <Link href="/notifications" className="flex items-center justify-between rounded-xl border border-zo-border px-4 py-3 text-sm text-brand-charcoal hover:border-brand-gold/50 hover:bg-zo-bg-light transition-colors">
+              <span className="flex items-center gap-2"><Bell className="h-4 w-4 text-zo-muted" />Notifications</span>
+              <ChevronRight className="h-4 w-4 text-zo-muted" />
+            </Link>
+            <Link href="/profile" className="flex items-center justify-between rounded-xl border border-zo-border px-4 py-3 text-sm text-brand-charcoal hover:border-brand-gold/50 hover:bg-zo-bg-light transition-colors">
+              <span className="flex items-center gap-2"><Settings className="h-4 w-4 text-zo-muted" />Profile &amp; settings</span>
+              <ChevronRight className="h-4 w-4 text-zo-muted" />
+            </Link>
+            {isRunner && (
+              <Link href="/runner" className="flex items-center justify-between rounded-xl border border-brand-gold/30 bg-brand-gold/5 px-4 py-3 text-sm text-brand-charcoal hover:border-brand-gold/60 hover:bg-brand-gold/10 transition-colors">
+                <span className="font-semibold">Runner Portal</span>
+                <ChevronRight className="h-4 w-4 text-brand-gold" />
+              </Link>
+            )}
             {!isRunner && (
               <Link href="/runner-apply" className="flex items-center justify-between rounded-xl border border-zo-border px-4 py-3 text-sm text-brand-charcoal hover:border-brand-gold/50 hover:bg-zo-bg-light transition-colors">
                 <span>Become a runner</span>
                 <ChevronRight className="h-4 w-4 text-zo-muted" />
               </Link>
             )}
-            <Link href="/how-it-works" className="flex items-center justify-between rounded-xl border border-zo-border px-4 py-3 text-sm text-brand-charcoal hover:border-brand-gold/50 hover:bg-zo-bg-light transition-colors">
-              <span>How it works</span>
-              <ChevronRight className="h-4 w-4 text-zo-muted" />
-            </Link>
           </div>
         </div>
 
