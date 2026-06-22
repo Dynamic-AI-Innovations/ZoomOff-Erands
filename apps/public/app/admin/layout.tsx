@@ -6,17 +6,18 @@ import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import {
   LayoutDashboard, Package, UserCheck, AlertTriangle,
-  Users, LogOut, Menu, X, ShieldCheck,
+  Users, LogOut, Menu, X, ShieldCheck, Bell,
 } from "lucide-react";
 import { cn } from "@zoomoff/ui";
 import { supabase } from "@zoomoff/api-client";
 
 const NAV_LINKS = [
-  { href: "/admin",           label: "Overview",  icon: LayoutDashboard },
-  { href: "/admin/tasks",     label: "Tasks",     icon: Package },
-  { href: "/admin/runners",   label: "Runners",   icon: UserCheck },
-  { href: "/admin/disputes",  label: "Disputes",  icon: AlertTriangle },
-  { href: "/admin/users",     label: "Users",     icon: Users },
+  { href: "/admin",               label: "Overview",      icon: LayoutDashboard },
+  { href: "/admin/tasks",         label: "Tasks",         icon: Package },
+  { href: "/admin/runners",       label: "Runners",       icon: UserCheck },
+  { href: "/admin/disputes",      label: "Disputes",      icon: AlertTriangle },
+  { href: "/admin/users",         label: "Users",         icon: Users },
+  { href: "/admin/notifications", label: "Notifications", icon: Bell },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

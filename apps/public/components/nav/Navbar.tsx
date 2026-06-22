@@ -11,9 +11,10 @@ import { supabase } from "@zoomoff/api-client";
 const NAV_LINKS = [
   { label: "How It Works", href: "/how-it-works" },
   { label: "Pricing", href: "/pricing" },
+  { label: "Cities", href: "/cities" },
   { label: "For Business", href: "/business" },
   { label: "Become a Runner", href: "/become-a-runner" },
-  { label: "Refer & Earn", href: "/referral" },
+  { label: "Blog", href: "/blog" },
 ];
 
 type AuthState = "loading" | "authed" | "anon";

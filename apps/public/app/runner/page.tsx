@@ -297,20 +297,20 @@ export default function RunnerPortalPage() {
               </div>
             )}
 
-            {/* Task feed info */}
-            <div className="rounded-2xl bg-brand-charcoal p-6 text-white">
-              <h2 className="font-display text-lg font-bold mb-1">Task Feed</h2>
-              <p className="text-sm text-gray-400 mb-4">
-                The runner task feed with live available errands is rolling out via the ZoomOff Errands Runner app. Download it to start accepting tasks and tracking your earnings in real-time.
-              </p>
-              <div className="flex gap-2">
-                <div className="flex-1 rounded-xl border border-white/20 bg-white/10 p-3 text-center text-xs text-gray-300">
-                  iOS App — Coming Soon
-                </div>
-                <div className="flex-1 rounded-xl border border-white/20 bg-white/10 p-3 text-center text-xs text-gray-300">
-                  Android App — Coming Soon
-                </div>
-              </div>
+            {/* Quick links */}
+            <div className="grid grid-cols-2 gap-3">
+              <Link href="/runner/tasks"
+                className="flex flex-col items-center gap-2 rounded-2xl bg-brand-charcoal p-5 text-white hover:bg-brand-charcoal/90 transition-colors text-center">
+                <Package className="h-6 w-6 text-brand-gold" />
+                <p className="text-sm font-bold">Task Feed</p>
+                <p className="text-xs text-gray-400">Browse & accept errands</p>
+              </Link>
+              <Link href="/runner/earnings"
+                className="flex flex-col items-center gap-2 rounded-2xl bg-brand-charcoal p-5 text-white hover:bg-brand-charcoal/90 transition-colors text-center">
+                <TrendingUp className="h-6 w-6 text-brand-gold" />
+                <p className="text-sm font-bold">Earnings</p>
+                <p className="text-xs text-gray-400">Track your income</p>
+              </Link>
             </div>
 
             {/* Runner profile details */}
